@@ -7,9 +7,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Feedback>
  */
-class CommentFactory extends Factory
+class FeedbackFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,6 +21,8 @@ class CommentFactory extends Factory
         return [
             'user_id' => User::factory(),
             'food_id' => Food::factory(),
+            'username' => fake()->userName(),
+            'rating' => fake()->numberBetween(1, 5),
             'description' => fake()->paragraph(3),
         ];
     }

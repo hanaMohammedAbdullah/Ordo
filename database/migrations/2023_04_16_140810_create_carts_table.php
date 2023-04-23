@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('desk_id')->constrained('desks')->cascadeOnDelete();
             $table->enum('status', ['waiting', 'done'])->default('waiting');
-            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

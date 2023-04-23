@@ -20,6 +20,7 @@ class OrderFactory extends Factory
         return [
             'cart_id' => Cart::factory(),
             'total_price' => fake()->numberBetween(100, 500),
+            'note' => fake()->paragraph(2),
         ];
     }
 }
