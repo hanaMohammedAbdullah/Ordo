@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Order extends Model
+class Feedback extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cart_id', 'status', 'note', 'total_price'];
+    protected $table = 'feedbacks';
+
+    protected $fillable = ['user_id', 'food_id', 'username', 'rating', 'description'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
@@ -28,8 +30,13 @@ class Order extends Model
         $this->attributes['updated_at'] = Carbon::parse($value)->setTimezone('Asia/Baghdad');
     }
 
-    public function cart(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Cart::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function food(): BelongsTo
+    {
+        return $this->belongsTo(Food::class);
     }
 }

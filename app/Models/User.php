@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'qrcode',
     ];
 
     /**
@@ -43,13 +45,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function comments(): HasMany
+    public function setCreatedAtAttribute($value)
     {
-        return $this->hasMany(Comment::class);
+        $this->attributes['created_at'] = Carbon::parse($value)->setTimezone('Asia/Baghdad');
     }
 
-    public function ratings(): HasMany
+    public function setUpdatedAtAttribute($value)
     {
-        return $this->hasMany(Rating::class);
+        $this->attributes['updated_at'] = Carbon::parse($value)->setTimezone('Asia/Baghdad');
+    }
+
+    public function feedbacks(): HasMany
+    {
+        return $this->hasMany(Feedback::class);
     }
 }
