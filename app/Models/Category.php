@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -12,7 +13,22 @@ class Category extends Model
 
     protected $fillable = ['name'];
 
-    public function sub_categories(): HasMany
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = Carbon::parse($value)->setTimezone('Asia/Baghdad');
+    }
+
+    public function setUpdatedAtAttribute($value)
+    {
+        $this->attributes['updated_at'] = Carbon::parse($value)->setTimezone('Asia/Baghdad');
+    }
+
+    public function subCategories(): HasMany
     {
         return $this->hasMany(SubCategory::class);
     }

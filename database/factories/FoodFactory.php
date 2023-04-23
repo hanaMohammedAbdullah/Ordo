@@ -18,7 +18,7 @@ class FoodFactory extends Factory
     public function definition()
     {
         return [
-            'sub_category_id' => 1,
+            'sub_category_id' => SubCategory::factory(),
             'name' => fake()->randomElement([
                 'cheese butter', 'meat burger', 'crispy burger', 'chicken burger', 'meat pizza',
                 'chicken pizza', 'mixed pizza', 'chicken shawrma', 'beef kebab', 'chicken kebab',
@@ -27,7 +27,6 @@ class FoodFactory extends Factory
             'price' => fake()->numberBetween(5, 20),
             'description' => fake()->paragraph(2),
             'flag_of_disable' => fake()->boolean(),
-            'rating' => fake()->numberBetween(1, 5),
             'time' => fake()->numberBetween(10, 40),
         ];
     }

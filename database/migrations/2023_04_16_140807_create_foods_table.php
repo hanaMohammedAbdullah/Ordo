@@ -19,7 +19,6 @@ return new class extends Migration
             $table->float('price');
             $table->text('description');
             $table->boolean('flag_of_disable')->default(false);
-            $table->float('rating');
             $table->integer('time');
             $table->timestamps();
         });

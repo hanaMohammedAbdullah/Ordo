@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->string('note')->nullable();
             $table->float('total_price');
             $table->timestamps();
         });
