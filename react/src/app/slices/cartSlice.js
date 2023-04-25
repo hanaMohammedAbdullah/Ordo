@@ -11,7 +11,7 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
       if (itemInCart) {
-        itemInCart.quantity++;
+        itemInCart.qutity++;
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
