@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\SubCategoryController as AdminSubCategoryControll
 //     return $request->user();
 // });
 
+// / Route::middleware(['auth:sanctum'])->group(function () {
 Route::post('qr-login', [AuthController::class, 'qrLogin']);
 
 Route::middleware(['accessToken'])->group(function () {
