@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Layout from "../Layouts/Layout";
 import { FaCartPlus } from "react-icons/fa";
 import FeedBack from "../components/FeedBack";
