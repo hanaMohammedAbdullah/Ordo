@@ -1,8 +1,6 @@
 import React from "react";
 import Layout from "../Layouts/Layout";
 import Scanner from "../assets/Scanner.jpg";
-import Qr from "../assets/Qr.jpg";
-import { Link } from "react-router-dom";
 import HomeButton from "../components/HomeButton";
 
 export default function Home() {
