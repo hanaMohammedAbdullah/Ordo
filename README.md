@@ -89,4 +89,5 @@ if something go wrong with version compuser update
 run php artisan db:seeder
 insert admin
 6.Run php artisan serve
+run php artisan storage:link
 7.Go to link localhost:8000
