@@ -11,7 +11,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { Login } from "./pages/Login";
 function App() {
   return (
-    <div cl>
+    <div>
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<Home />} />
