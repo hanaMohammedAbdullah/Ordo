@@ -1,6 +1,6 @@
 const FeedBack = () => {
     return (
-        <div className="flex-col border-2 shadow-md rounded my-4 ">
+        <div className="flex-col border-2 shadow-md rounded my-4  p-4">
             <div className="flex m-2 ">
                 <img
                     className="rounded-full h-20 w-20 m-2	"

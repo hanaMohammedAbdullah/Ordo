@@ -22,28 +22,30 @@ const Feed = ({ setShowModal }) => {
                             </button>
                         </div>
                         {/*body*/}
-                        <p>
-                            Name :{" "}
-                            <input
-                                className="border w-11/12 border-gray-400 rounded-md"
-                                type="text"
-                                placeholder="Enter your name"
-                            />
-                        </p>
-                        <p>
-                            Rate{" "}
-                            <Rating rating={rating} setRating={setRating} />
-                        </p>
-                        <div className="relative p-6 flex-auto">
-                            <textarea
-                                name="content"
-                                id="content"
-                                placeholder="Enter your note here"
-                                // value={content}
-                                // onChange={}
-                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-11/12 sm:text-sm border-gray-400 rounded-md "
-                                rows="3"
-                            ></textarea>
+                        <div className="px-3 py-4">
+                            <p>
+                                Name :{" "}
+                                <input
+                                    className="border w-11/12 border-gray-400 rounded-md"
+                                    type="text"
+                                    placeholder="Enter your name"
+                                />
+                            </p>
+                            <p>
+                                Rate{" "}
+                                <Rating rating={rating} setRating={setRating} />
+                            </p>
+                            <div className="relative p-6 flex-auto">
+                                <textarea
+                                    name="content"
+                                    id="content"
+                                    placeholder="Enter your note here"
+                                    // value={content}
+                                    // onChange={}
+                                    className="mt-1 focus:ring-green-500 focus:border-green-500 block w-11/12 sm:text-sm border-gray-400 rounded-md "
+                                    rows="3"
+                                ></textarea>
+                            </div>
                         </div>
                         {/*footer*/}
                         <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
