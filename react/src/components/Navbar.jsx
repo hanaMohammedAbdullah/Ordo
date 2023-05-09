@@ -10,7 +10,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
                         <button
-                            className="text-gray-900 hover:text-gray-500 focus:outline-none focus:text-white"
+                            className="text-gray-900 hover:text-gray-500 focus:outline-none focus:black-white"
                             aria-label="Open sidebar"
                             onClick={() => setShowLinks(!showLinks)}
                         >
@@ -46,19 +46,19 @@ const Navbar = () => {
                         </a>
                         <a
                             href="/cart"
-                            className="text-gray-300 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-black-300 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium"
                         >
                             My Ordered
                         </a>
                         <a
                             href="/contact"
-                            className="text-gray-300 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-black-300 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium"
                         >
                             All Food
                         </a>
                         <a
                             href="/about"
-                            className="text-gray-300 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-black-300 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium"
                         >
                             About
                         </a>

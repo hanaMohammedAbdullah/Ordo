@@ -17,9 +17,8 @@ const FoodDetail = () => {
     const foods = useSelector((state) => state.foods.allFoods); //get all foods from the store
     useEffect(() => {
         if (id) {
-            console.log(id);
             const food = foods.filter((food) => food.id === id);
-            console.log(foods);
+            console.log(food);
         }
 
         // dispatch(getFood(id));

@@ -5,10 +5,11 @@ import FoodCategore from "./pages/FoodCategore";
 import About from "./pages/About";
 import Error from "./pages/Error";
 import FoodDetail from "./pages/FoodDeatil";
-import { store } from "./store/app";
+import { store } from "./store/Store";
 import { Provider } from "react-redux";
 import { Dashboard } from "./pages/Dashboard";
 import { Login } from "./pages/Login";
+import { Cart } from "./pages/Cart";
 function App() {
   return (
     <div>
@@ -21,6 +22,7 @@ function App() {
           <Route path="/foodDetail/:id" element={<FoodDetail />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
           {/* {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />} */}
         </Routes>
       </Provider>
