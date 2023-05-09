@@ -1,4 +1,6 @@
 const FoodNote = ({ setShowModal }) => {
+    // call
+
     return (
         <>
             <div className="justify-center w-11/12 items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -43,7 +45,7 @@ const FoodNote = ({ setShowModal }) => {
                                 type="button"
                                 onClick={() => setShowModal(false)}
                             >
-                                Note
+                                Add
                             </button>
                         </div>
                     </div>

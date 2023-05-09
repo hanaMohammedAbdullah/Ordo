@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const FoodCard = ({ imageSrc, name, price, id }) => {
     return (
         <Link
+            // add id to the path
             to={`/foodDetail/${id}`}
             className="bg-white rounded-md overflow-hidden shadow-lg px-2 m-2"
         >
