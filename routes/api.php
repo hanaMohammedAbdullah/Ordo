@@ -8,6 +8,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FoodDetailController;
+use App\Http\Controllers;
 
 use App\Http\Controllers\Admin\FoodController as AdminFoodController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
@@ -33,6 +34,7 @@ use App\Http\Controllers\Admin\SubCategoryController as AdminSubCategoryControll
 
 // / Route::middleware(['auth:sanctum'])->group(function () {
 Route::post('qr-login', [AuthController::class, 'qrLogin']);
+Route::post('login',[\App\Http\Controllers\Admin\AuthController::class, 'login']);
 
 Route::middleware(['accessToken'])->group(function () {
 

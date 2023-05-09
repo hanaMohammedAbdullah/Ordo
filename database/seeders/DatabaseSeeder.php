@@ -17,6 +17,7 @@ use Database\Factories\OrderFactory;
 use Database\Factories\RatingFactory;
 use Database\Factories\CommentFactory;
 use Database\Factories\CartFoodFactory;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,9 +38,12 @@ class DatabaseSeeder extends Seeder
             }
         });
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@Ordo.com',
+            'password' => Hash::make('112345678')
+        ]);
+
+
     }
 }

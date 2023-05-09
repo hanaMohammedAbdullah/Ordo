@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AdminMiddleware
 {
@@ -19,30 +20,18 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $email = $request->getUser();
-        $password = $request->getPassword();
-
-        $admin = User::where('email', 'admin@Ordo.com')->first();
-        $checkadmin = User::where('email', $email)->first();
 
 
-        if ($checkadmin?->email != 'admin@Ordo.com' || !Hash::check($password, $admin->password)) {
-            return response()->json([
-                'message' => 'Unauthorized'
-            ], 403);
-        }
+        $token = $request->header('Authorization');
 
-        if (!Hash::check($password, $admin->password)) {
-            return response()->json([
-                'message' => 'Unauthorized'
-            ], 403);
-        }
+        // Remove the "Bearer " prefix
+        $token = substr($token, 7);
 
-        // if ($request->user()?->cannot('admin')) {
-        //     return response()->json([
-        //         'message' => 'Unauthorized'
-        //     ], 403);
-        // }
+        $accessToken = PersonalAccessToken::findToken($token);
+
+        abort_if($accessToken?->expires_at > now() && $accessToken?->tokenable->email != 'admin@Ordo.com', 401, 'Unauthorized');
+
+        $request->merge(['admin' => $accessToken->tokenable]);
         return $next($request);
     }
 }
