@@ -1,13 +1,29 @@
 import Layout from "../Layouts/Layout";
 import { FaCartPlus } from "react-icons/fa";
 import FeedBack from "../components/FeedBack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FoodNote from "../components/FoodNote";
 import Feed from "../components/Feed";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const FoodDetail = () => {
     const [addingNote, setAddingNote] = useState(false);
     const [feedBack, setFeedBack] = useState(false);
+
+    //retrive the id param from the url and use it to fetch the food details
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const foods = useSelector((state) => state.foods.allFoods); //get all foods from the store
+    useEffect(() => {
+        if (id) {
+            console.log(id);
+            const food = foods.filter((food) => food.id === id);
+            console.log(foods);
+        }
+
+        // dispatch(getFood(id));
+    }, [id]);
 
     return (
         <>
@@ -19,10 +35,10 @@ const FoodDetail = () => {
                         alt="foodpic"
                     />
                     <h2 className="text-2xl font-bold	">Food Name</h2>
-                    <p className="flex w-1/3 justify-evenly 	 ">
+                    <div className="flex w-1/3 justify-evenly 	 ">
                         <p className="">rate</p>
                         <p className="text-slate-500	 ">review</p>
-                    </p>
+                    </div>
                     <h2 className="text-lg font-semibold mt-2	">Description</h2>
                     <p className="m-2">
                         Food Description Lorem ipsum dolor sit amet consectetur
