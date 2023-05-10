@@ -16,7 +16,7 @@ function App() {
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/lunch" element={<FoodCategore />} />
+          <Route path="/category/:id" element={<FoodCategore />} />
           <Route path="/about" element={<About />} />
           <Route path="/*" element={<Error />} />
           <Route path="/foodDetail/:id" element={<FoodDetail />} />

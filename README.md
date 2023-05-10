@@ -86,8 +86,8 @@ if something go wrong with version compuser update
 3.Run cp .env.example .env
 4.Run php artisan key:generate
 5.Run php artisan migrate
-run php artisan db:seeder
+run php artisan db:seed
 insert admin
-6.Run php artisan serve
 run php artisan storage:link
+6.Run php artisan serve
 7.Go to link localhost:8000

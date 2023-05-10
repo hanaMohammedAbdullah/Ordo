@@ -85,7 +85,7 @@ class AuthController extends Controller
         $token = $personalAccessToken->token;
 
         $response = response()->json([
-            'message' => 'Successfully authenticated',
+            'message' => 'Successfully authenticated', 'token' => $token,
         ]);
 
         $response->header('Authorization', 'Bearer ' . $token);
