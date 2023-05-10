@@ -6,7 +6,7 @@ import FoodNote from "../components/FoodNote";
 import Feed from "../components/Feed";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import { getFoodById } from "../service/apiServer";
 const FoodDetail = () => {
     const [addingNote, setAddingNote] = useState(false);
     const [feedBack, setFeedBack] = useState(false);
@@ -14,11 +14,13 @@ const FoodDetail = () => {
     //retrive the id param from the url and use it to fetch the food details
     const { id } = useParams();
     const dispatch = useDispatch();
+    const singleFood = {};
     const foods = useSelector((state) => state.foods.allFoods); //get all foods from the store
     useEffect(() => {
         if (id) {
-            const food = foods.filter((food) => food.id === id);
-            console.log(food);
+            getFoodById(id).then((res) => {
+                singleFood = res.data;
+            });
         }
 
         // dispatch(getFood(id));
