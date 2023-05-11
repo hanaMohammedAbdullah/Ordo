@@ -1,154 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-let allFoods = [
-  {
-    id: 30,
-    sub_category_id: 35,
-    name: "chicken burger",
-    price: 8,
-    description:
-      "Non omnis saepe reiciendis atque excepturi illo. Ea facere qui ratione. Sed ipsa rem qui ut.",
-    flag_of_disable: 1,
-    time: 15,
-    created_at: "2023-04-22 13:38:17",
-    updated_at: "2023-04-22 13:38:17",
-    feedbacks_count: 2,
-    feedbacks_avg_rating: "4.3",
-    feedbacks: [
-      {
-        id: 6,
-        user_id: 6,
-        food_id: 30,
-        username: "hana",
-        rating: "4.0",
-        description: "its worth trying",
-        created_at: "2023-04-22 13:39:10",
-        updated_at: "2023-04-22 13:39:10",
-      },
-      {
-        id: 7,
-        user_id: 6,
-        food_id: 30,
-        username: "hana",
-        rating: "4.6",
-        description: "its worth trying",
-        created_at: "2023-04-22 15:44:59",
-        updated_at: "2023-04-22 15:44:59",
-      },
-    ],
-  },
-  {
-    id: 1,
-    sub_category_id: 35,
-    name: "briany ",
-    price: 5,
-    description:
-      "Non omnis saepe reiciendis atque excepturi illo. Ea facere qui ratione. Sed ipsa rem qui ut.",
-    flag_of_disable: 1,
-    time: 15,
-    created_at: "2023-04-22 13:38:17",
-    updated_at: "2023-04-22 13:38:17",
-    feedbacks_count: 2,
-    feedbacks_avg_rating: "4.3",
-    feedbacks: [
-      {
-        id: 6,
-        user_id: 6,
-        food_id: 30,
-        username: "hana",
-        rating: "4.0",
-        description: "its worth trying",
-        created_at: "2023-04-22 13:39:10",
-        updated_at: "2023-04-22 13:39:10",
-      },
-      {
-        id: 7,
-        user_id: 6,
-        food_id: 30,
-        username: "hana",
-        rating: "4.6",
-        description: "its worth trying",
-        created_at: "2023-04-22 15:44:59",
-        updated_at: "2023-04-22 15:44:59",
-      },
-    ],
-  },
-  {
-    id: 2,
-    sub_category_id: 35,
-    name: "dolma",
-    price: 9,
-    description:
-      "Non omnis saepe reiciendis atque excepturi illo. Ea facere qui ratione. Sed ipsa rem qui ut.",
-    flag_of_disable: 1,
-    time: 15,
-    created_at: "2023-04-22 13:38:17",
-    updated_at: "2023-04-22 13:38:17",
-    feedbacks_count: 2,
-    feedbacks_avg_rating: "4.3",
-    feedbacks: [
-      {
-        id: 6,
-        user_id: 6,
-        food_id: 30,
-        username: "hana",
-        rating: "4.0",
-        description: "its worth trying",
-        created_at: "2023-04-22 13:39:10",
-        updated_at: "2023-04-22 13:39:10",
-      },
-      {
-        id: 7,
-        user_id: 6,
-        food_id: 30,
-        username: "hana",
-        rating: "4.6",
-        description: "its worth trying",
-        created_at: "2023-04-22 15:44:59",
-        updated_at: "2023-04-22 15:44:59",
-      },
-    ],
-  },
-  {
-    id: 3,
-    sub_category_id: 35,
-    name: "pitza",
-    price: 8,
-    description:
-      "Non omnis saepe reiciendis atque excepturi illo. Ea facere qui ratione. Sed ipsa rem qui ut. lorem lorem",
-    flag_of_disable: 1,
-    time: 15,
-    created_at: "2023-04-22 13:38:17",
-    updated_at: "2023-04-22 13:38:17",
-    feedbacks_count: 2,
-    feedbacks_avg_rating: "4.3",
-    feedbacks: [
-      {
-        id: 6,
-        user_id: 6,
-        food_id: 30,
-        username: "hana",
-        rating: "4.0",
-        description: "its worth trying",
-        created_at: "2023-04-22 13:39:10",
-        updated_at: "2023-04-22 13:39:10",
-      },
-      {
-        id: 7,
-        user_id: 6,
-        food_id: 30,
-        username: "hana",
-        rating: "4.6",
-        description: "its worth trying",
-        created_at: "2023-04-22 15:44:59",
-        updated_at: "2023-04-22 15:44:59",
-      },
-    ],
-  },
-];
+import { getFoods } from "../../service/apiServer";
+let state = {
+  allFoods: {},
+  loading: false,
+  error: false,
+  singleFood: {},
+};
 const initialState = {
   allFoods: localStorage.getItem("allFoods")
     ? JSON.parse(localStorage.getItem("allFoods"))
-    : allFoods,
+    : state,
 };
 export const foodsSlice = createSlice({
   name: "foods",
@@ -191,9 +52,30 @@ export const foodsSlice = createSlice({
       localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
     },
   },
+
+  extraReducers: (builder) => {
+    builder.addCase(getFoods.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getFoods.fulfilled, (state, action) => {
+      state.loading = false;
+      state.allFoods = action.payload;
+      localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
+    });
+
+    builder.addCase(getFoods.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+  },
 });
 
 export default foodsSlice.reducer;
+// async getAllFoods() {
+//   await getFoods().then((foods) => {
+//     allFoods = foods;
+//   });
+// },
 export const {
   toggleToCart,
   changeCartQuantity,
@@ -201,3 +83,148 @@ export const {
   toggleDeleteFood,
   editFood,
 } = foodsSlice.actions;
+
+// {
+//   id: 30,
+//   sub_category_id: 35,
+//   name: "chicken burger",
+//   price: 8,
+//   description:
+//     "Non omnis saepe reiciendis atque excepturi illo. Ea facere qui ratione. Sed ipsa rem qui ut.",
+//   flag_of_disable: 1,
+//   time: 15,
+//   created_at: "2023-04-22 13:38:17",
+//   updated_at: "2023-04-22 13:38:17",
+//   feedbacks_count: 2,
+//   feedbacks_avg_rating: "4.3",
+//   feedbacks: [
+//     {
+//       id: 6,
+//       user_id: 6,
+//       food_id: 30,
+//       username: "hana",
+//       rating: "4.0",
+//       description: "its worth trying",
+//       created_at: "2023-04-22 13:39:10",
+//       updated_at: "2023-04-22 13:39:10",
+//     },
+//     {
+//       id: 7,
+//       user_id: 6,
+//       food_id: 30,
+//       username: "hana",
+//       rating: "4.6",
+//       description: "its worth trying",
+//       created_at: "2023-04-22 15:44:59",
+//       updated_at: "2023-04-22 15:44:59",
+//     },
+//   ],
+// },
+// {
+//   id: 1,
+//   sub_category_id: 35,
+//   name: "briany ",
+//   price: 5,
+//   description:
+//     "Non omnis saepe reiciendis atque excepturi illo. Ea facere qui ratione. Sed ipsa rem qui ut.",
+//   flag_of_disable: 1,
+//   time: 15,
+//   created_at: "2023-04-22 13:38:17",
+//   updated_at: "2023-04-22 13:38:17",
+//   feedbacks_count: 2,
+//   feedbacks_avg_rating: "4.3",
+//   feedbacks: [
+//     {
+//       id: 6,
+//       user_id: 6,
+//       food_id: 30,
+//       username: "hana",
+//       rating: "4.0",
+//       description: "its worth trying",
+//       created_at: "2023-04-22 13:39:10",
+//       updated_at: "2023-04-22 13:39:10",
+//     },
+//     {
+//       id: 7,
+//       user_id: 6,
+//       food_id: 30,
+//       username: "hana",
+//       rating: "4.6",
+//       description: "its worth trying",
+//       created_at: "2023-04-22 15:44:59",
+//       updated_at: "2023-04-22 15:44:59",
+//     },
+//   ],
+// },
+// {
+//   id: 2,
+//   sub_category_id: 35,
+//   name: "dolma",
+//   price: 9,
+//   description:
+//     "Non omnis saepe reiciendis atque excepturi illo. Ea facere qui ratione. Sed ipsa rem qui ut.",
+//   flag_of_disable: 1,
+//   time: 15,
+//   created_at: "2023-04-22 13:38:17",
+//   updated_at: "2023-04-22 13:38:17",
+//   feedbacks_count: 2,
+//   feedbacks_avg_rating: "4.3",
+//   feedbacks: [
+//     {
+//       id: 6,
+//       user_id: 6,
+//       food_id: 30,
+//       username: "hana",
+//       rating: "4.0",
+//       description: "its worth trying",
+//       created_at: "2023-04-22 13:39:10",
+//       updated_at: "2023-04-22 13:39:10",
+//     },
+//     {
+//       id: 7,
+//       user_id: 6,
+//       food_id: 30,
+//       username: "hana",
+//       rating: "4.6",
+//       description: "its worth trying",
+//       created_at: "2023-04-22 15:44:59",
+//       updated_at: "2023-04-22 15:44:59",
+//     },
+//   ],
+// },
+// {
+//   id: 3,
+//   sub_category_id: 35,
+//   name: "pitza",
+//   price: 8,
+//   description:
+//     "Non omnis saepe reiciendis atque excepturi illo. Ea facere qui ratione. Sed ipsa rem qui ut. lorem lorem",
+//   flag_of_disable: 1,
+//   time: 15,
+//   created_at: "2023-04-22 13:38:17",
+//   updated_at: "2023-04-22 13:38:17",
+//   feedbacks_count: 2,
+//   feedbacks_avg_rating: "4.3",
+//   feedbacks: [
+//     {
+//       id: 6,
+//       user_id: 6,
+//       food_id: 30,
+//       username: "hana",
+//       rating: "4.0",
+//       description: "its worth trying",
+//       created_at: "2023-04-22 13:39:10",
+//       updated_at: "2023-04-22 13:39:10",
+//     },
+//     {
+//       id: 7,
+//       user_id: 6,
+//       food_id: 30,
+//       username: "hana",
+//       rating: "4.6",
+//       description: "its worth trying",
+//       created_at: "2023-04-22 15:44:59",
+//       updated_at: "2023-04-22 15:44:59",
+//     },
+//   ],
+// },
