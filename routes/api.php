@@ -34,7 +34,7 @@ use App\Http\Controllers\Admin\SubCategoryController as AdminSubCategoryControll
 
 // / Route::middleware(['auth:sanctum'])->group(function () {
 Route::post('qr-login', [AuthController::class, 'qrLogin']);
-Route::post('login',[\App\Http\Controllers\Admin\AuthController::class, 'login']);
+Route::post('login', [\App\Http\Controllers\Admin\AuthController::class, 'login']);
 
 Route::middleware(['accessToken'])->group(function () {
 
@@ -42,6 +42,7 @@ Route::middleware(['accessToken'])->group(function () {
     Route::get('menu/categories/{category}', [MenuController::class, 'showFoodsBelongToCategory']);
     Route::get('menu/sub-categories/{subcategory}', [MenuController::class, 'showFoodsBelongToSubCategory']);
 
+    Route::get('menu/food-details', [FoodDetailController::class, 'index']);
     Route::get('menu/food-details/{food}', [FoodDetailController::class, 'show']);
 
     Route::post('carts', [CartController::class, 'index']);

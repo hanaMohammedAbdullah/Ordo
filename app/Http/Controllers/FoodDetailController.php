@@ -6,6 +6,11 @@ use App\Models\Food;
 
 class FoodDetailController extends Controller
 {
+
+    public function index()
+    {
+        return Food::all();
+    }
     /**
      * Display the specified resource.
      *

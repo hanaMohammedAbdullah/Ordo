@@ -10,8 +10,7 @@ class MenuController extends Controller
 
     public function index()
     {
-        $categories = Category::latest()->get();
-
+        $categories = Category::with(['subCategories', 'subCategories.foods'])->latest()->get();
         return response()->json([
             'category' => $categories
         ]);

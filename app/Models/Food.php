@@ -19,6 +19,11 @@ class Food extends Model implements HasMedia
 
     protected $fillable = ['sub_category_id', 'name', 'price', 'description', 'flag_of_disable', 'time'];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
