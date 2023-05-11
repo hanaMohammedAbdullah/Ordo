@@ -4,59 +4,102 @@ import axios from "axios";
 export const apiUrl = "http://localhost:8000/api";
 export let token = "";
 export const login = async (email, password) => {
-  const response = await axios.post(`${apiUrl}/users/login`, {
-    email,
-    password,
-  });
-  return response.data;
+  try {
+    const response = await axios.post(`${apiUrl}/users/login`, {
+      email,
+      password,
+    });
+
+    token = response.data.token;
+    return response.data;
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
 };
 
 export const qrlogin = async (qr) => {
-  const response = await axios.post(`${apiUrl}/qr-login`, {
-    qrcode: qr,
-  });
-  // console.log("header req ", response.data.token);
-  token = response.data.token;
-  return response.data.token;
-};
-
-export const getSingleFood = createAsyncThunk(
-  "/menu/food-details/:id",
-  async (token, id) => {
-    try {
-      const response = await axios.get(`${apiUrl}/foods/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return response.data;
-    } catch (error) {
-      return error.message;
-    }
+  try {
+    const response = await axios.post(`${apiUrl}/qr-login`, {
+      qrcode: qr,
+    });
+    // console.log("header req ", response.data.token);
+    token = response.data.token;
+    return response.data.token;
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
   }
-);
-export const createFood = async (food, token) => {
-  const response = await axios.post(`${apiUrl}/foods`, food, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
+};
+export const getSingleFood = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}/menu/food-details/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+
+  // console.log("this is token in sinfle food ", token);
+  // write for me a logic that sending the sinlge dat object to the food state in store
+
+  // console.log("this is response in sinfle food ", response);
 };
 
-export const updateFood = async (id, updates, token) => {
-  const response = await axios.put(`${apiUrl}/foods/${id}`, updates, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
+// export const getSingleFood = createAsyncThunk(
+//   "/menu/food-details/:id",
+//   async (id) => {
+//     console.log("this is token in sinfle food ", token);
+//     try {
+//       const response = await axios.get(`${apiUrl}/foods/${id}`, {
+//         headers: { Authorization: `Bearer ${token}` },
+//       });
+//       return response.data;
+//     } catch (error) {
+//       return error.message;
+//     }
+//   }
+// );
+export const createFood = async (food) => {
+  try {
+    const response = await axios.post(`${apiUrl}/foods`, food, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
 };
 
-export const deleteFood = async (id, token) => {
+export const updateFood = async (id, updates) => {
+  try {
+    const response = await axios.put(`${apiUrl}/foods/${id}`, updates, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
+
+export const deleteFood = async (id) => {
   const response = await axios.delete(`${apiUrl}/foods/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
 };
 
-export const getCategory = async (token) => {
-  const response = await axios.get(`${apiUrl}/menu/categories`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
+export const getCategory = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/menu/categories`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error.message);
+
+    return error.message;
+  }
 };
