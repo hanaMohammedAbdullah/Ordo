@@ -1,6 +1,7 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const apiUrl = "http://localhost:8000/api";
+export const apiUrl = "http://localhost:8000/api";
 export let token = "";
 export const login = async (email, password) => {
   const response = await axios.post(`${apiUrl}/users/login`, {
@@ -19,12 +20,19 @@ export const qrlogin = async (qr) => {
   return response.data.token;
 };
 
-export const getFoods = async (token) => {
-  const response = await axios.get(`${apiUrl}/foods`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
-};
+export const getSingleFood = createAsyncThunk(
+  "/menu/food-details/:id",
+  async (token, id) => {
+    try {
+      const response = await axios.get(`${apiUrl}/foods/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 export const createFood = async (food, token) => {
   const response = await axios.post(`${apiUrl}/foods`, food, {
     headers: { Authorization: `Bearer ${token}` },

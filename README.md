@@ -82,6 +82,10 @@ https://stackoverflow.com/questions/69442658/laravel-error-when-installing-simpl
 
 1.Run git clone <my-cool-project>
 2.Run composer install
+go to php.ini
+then uncomment those files
+extension=fileinfo
+extension=gd
 if something go wrong with version compuser update
 3.Run cp .env.example .env
 4.Run php artisan key:generate

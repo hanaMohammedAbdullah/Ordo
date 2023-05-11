@@ -5,7 +5,7 @@ import About from "./pages/About";
 import { Cart } from "./pages/Cart";
 import { Dashboard } from "./pages/Dashboard";
 import Error from "./pages/Error";
-import FoodCategore from "./pages/FoodCategore";
+import FoodCategore from "./pages/FoodsPage";
 import FoodDetail from "./pages/FoodDeatil";
 import { FoodFix } from "./pages/FoodFix";
 import Home from "./pages/Home";
@@ -18,7 +18,7 @@ function App() {
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/category/:id" element={<FoodCategore />} />
+          <Route path="/foods" element={<FoodCategore />} />
           <Route path="/about" element={<About />} />
           <Route path="/foodDetail/:id" element={<FoodDetail />} />
           <Route path="/menu" element={<Dashboard />} />
