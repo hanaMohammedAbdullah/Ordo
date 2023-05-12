@@ -12,15 +12,17 @@ import Home from "./pages/Home";
 import { Login } from "./pages/Login";
 import { store } from "./store/Store";
 import { ModalDatabases } from "./pages/ModalDatabases";
+import { Welcome } from "./pages/Welcome";
 function App() {
   return (
     <div>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/:desk" element={<Welcome />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/foods" element={<FoodCategore />} />
           <Route path="/about" element={<About />} />
-          <Route path="/foodDetail/:id" element={<FoodDetail />} />
+          <Route path="/foodDetail/" element={<FoodDetail />} />
           <Route path="/menu" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />

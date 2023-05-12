@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { apiUrl } from "../../service/apiServer";
-export const getFoods = createAsyncThunk("foods/getFoods", async (token) => {
+import { token } from "../../service/apiServer";
+export const getFoods = createAsyncThunk(async () => {
   try {
     const response = await axios.get(`${apiUrl}/menu/food-details`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return response.data;
+    // console.log("this is response in foods ", response.data);
+    return [...response.data];
   } catch (error) {
     return error.message;
   }

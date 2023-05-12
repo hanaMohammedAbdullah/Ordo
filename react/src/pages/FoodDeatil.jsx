@@ -4,34 +4,37 @@ import FeedBack from "../components/FeedBack";
 import { useEffect, useState } from "react";
 import FoodNote from "../components/FoodNote";
 import Feed from "../components/Feed";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSingleFood, qrlogin } from "../service/apiServer";
+import { getFoods } from "../store/slice/foodsSlice";
+import { getFoodList } from "../service/apiServer";
 const FoodDetail = () => {
     const [addingNote, setAddingNote] = useState(false);
     const [feedBack, setFeedBack] = useState(false);
-    const [singleFood, setSingleFood] = useState({});
+    // const [singleFood, setSingleFood] = useState({});
 
-    //retrive the id param from the url and use it to fetch the food details
-    const { id } = useParams();
-    useEffect(() => {
-        if (id) {
-            qrlogin("id");
-            getSingleFood(id).then((res) => {
-                setSingleFood(res.data);
-            });
-        }
-    }, []);
-    // const dispatch = useDispatch();
-    // const singleFood = {};
-    // const foods = useSelector((state) => state.foods.allFoods); //get all foods from the store
-    // useEffect(() => {
-    //     if (id) {
-    //         getFoodById(id).then((res) => {
-    //             singleFood = res.data;
-    //         });
-    //     }
-
+    // //retrive the id param from the url and use it to fetch the food details
+    // const { id } = useParams();
+    // {
+    //     useEffect(() => {
+    //         if (id) {
+    //             qrlogin("id");
+    //             getSingleFood(id).then((res) => {
+    //                 setSingleFood(res.data);
+    //             });
+    //         }
+    //     }, []);
+    // }
+    const dispatch = useDispatch();
+    const singleFood = {};
+    const foods = useSelector((state) => state.foods.allFoods); //get all foods from the store
+    // qrlogin("id");
+    {
+        useEffect(() => {
+            let ha = getFoodList();
+            console.log("hhahahk    ", ha);
+            // dispatch(ha);
+        }, []);
+    }
     // dispatch(getFood(id));
     // }, [id]);
 
