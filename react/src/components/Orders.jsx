@@ -1,14 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addToCart } from "../store/slice/cartSlice";
 import { useDispatch } from "react-redux";
 
 const FoodNote = ({ food, setShowModal }) => {
     const dispatch = useDispatch();
     // call
+    // createing a state managment to give the value of note to the data before adding to the cart
+    //
+    const [note, setNote] = useState("");
+
     let data = { ...food, quantity: 1, desk_id: 1, cart_id: 1 };
     // console.log("food oder", food);
     // useEffect(() => {}, []);
-    const addToCartHandler = () => {
+    const textAreaRef = useRef(null);
+
+    const addToCartHandler = (e) => {
+        data = { ...data, description: textAreaRef.current.value };
+        console.log("data in note", data);
         dispatch(addToCart(data));
         setShowModal(false);
     };
@@ -35,10 +43,9 @@ const FoodNote = ({ food, setShowModal }) => {
                         <div className="relative p-6 flex-auto">
                             <textarea
                                 name="content"
-                                id="content"
                                 placeholder="Enter your note here"
-                                // value={content}
-                                // onChange={}
+                                ref={textAreaRef}
+                                id="textArea"
                                 className="mt-1 focus:ring-green-500 focus:border-green-500 block w-11/12 sm:text-sm border-gray-300 rounded-md"
                                 rows="3"
                             ></textarea>

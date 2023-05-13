@@ -10,12 +10,10 @@ const FoodsPage = () => {
     // const [foods, setFood] = useState([]);
     const dispatch = useDispatch();
     const foods = useSelector((state) => state.foods.allFoods); //get all foods from the store
-    console.log("first ", foods);
     // console.log("first ", foods);
     const getHandler = async () => {
         let data = await getFoodList();
         dispatch(setFood(data));
-        console.log("secound ", foods);
         return data;
     };
     // let data;

@@ -137,3 +137,98 @@ export const getCategory = async () => {
     return error.message;
   }
 };
+
+//    cart sectiuon
+export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
+  try {
+    const response = await axios.post(`${apiUrl}/carts/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      body: {
+        deskNumber,
+        foodId,
+        quantity,
+      },
+    });
+    console.log("this is response in carts  id food ", response.data);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const getCarts = async (deskNumber) => {
+  try {
+    const response = await axios.post(`${apiUrl}/carts`, {
+      headers: { Authorization: `Bearer ${token}` },
+      body: {
+        deskNumber,
+      },
+    });
+    console.log("this is response in get carts  carts ", response.data);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
+export const setOrderCart = async (
+  id,
+  { deskNumber, food_id, quantity, note }
+) => {
+  try {
+    const response = await axios.post(`${apiUrl}/orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+      body: {
+        deskNumber,
+        food_id,
+        quantity,
+        note,
+      },
+    });
+    console.log("this is response in set order cart  ", response.data);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
+export const getOrderCart = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("this is response in carts  id food ", response.data);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
+export const cancelOrderCart = async (id_cart) => {
+  try {
+    const response = await axios.delete(`${apiUrl}/orders/${id_cart}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("this is response in carts  id food ", response.data);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
+/// note for food foodback
+export const setFeedbackFood = async (
+  id_food,
+  { username, rating, description }
+) => {
+  try {
+    const response = await axios.post(`${apiUrl}feedback/foods/${id_food}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      body: {
+        username,
+        rating,
+        description,
+      },
+    });
+    console.log("this is response in carts  id food ", response.data);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};

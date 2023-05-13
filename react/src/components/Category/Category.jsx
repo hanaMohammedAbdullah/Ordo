@@ -30,10 +30,10 @@ export default function Category({ id, name }) {
 
     let colorClass = getFoodClass();
     return (
-        <div className="flex flex-col item-center md:grid md:grid-cols-2 items-center  gap-x-4 gap-y-3 m-10 ">
+        <div className="flex w-fit flex-col item-center md:grid md:grid-cols-2 items-center  gap-x-4 gap-y-3 m-7 ">
             <Link
                 to={`/category/${name}`}
-                className={`${colorClass}  p-10 w-full text-2xl font-bold text-white`}
+                className={`${colorClass}  p-8 w-full text-lg font-bold text-white`}
             >
                 <h1>{name}</h1>
             </Link>

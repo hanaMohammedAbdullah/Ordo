@@ -5,7 +5,7 @@ const HomeButton = () => {
         <>
             {" "}
             <div className="h-16 w-36 bg-orange-400  flex 	items-center	 justify-center	rounded-lg mx-auto my-10">
-                <Link to="/" className=" text-xl font-bold text-white">
+                <Link to="/home" className=" text-xl font-bold text-white">
                     {" "}
                     Go to Home
                 </Link>

@@ -18,11 +18,14 @@ import Adding from "./pages/Admin/Adding";
 import AddNewCategory from "./pages/Admin/adding/AddNewCategory";
 import AddNewSubCategory from "./pages/Admin/adding/AddNewSubCategory";
 import AddNewFood from "./pages/Admin/adding/AddNewFood";
+import { Checkout } from "./pages/Checkout";
+import { DeskNum } from "./pages/DeskNum";
 function App() {
   return (
     <div>
       <Provider store={store}>
         <Routes>
+          <Route path="/" element={<DeskNum />} />
           <Route path="/:desk" element={<Welcome />} />
           <Route path="/home" element={<Home />} />
           <Route path="/category/:id" element={<FoodsPage />} />
@@ -32,12 +35,16 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/food/:id" element={<FoodFix />} />
           <Route path="/add" element={<ModalDatabases />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/adding" element={<Adding />} />
           <Route path="/adding/addNewCategory" element={<AddNewCategory />} />
-          <Route path="/adding/addNewSubCategory" element={<AddNewSubCategory />} />
+          <Route
+            path="/adding/addNewSubCategory"
+            element={<AddNewSubCategory />}
+          />
           <Route path="/adding/addNewFood" element={<AddNewFood />} />
           <Route path="/*" element={<Error />} />
           {/* {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />} */}

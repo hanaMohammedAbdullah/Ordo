@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../Layouts/Layout";
-import Category from "../components/Category";
 import { getCategory } from "../service/apiServer";
 import { setCategory } from "../store/slice/categorySlice";
+import Category from "../components/Category/Category";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function Home() {
     }, [dispatch]);
     return (
         <Layout>
-            <div className="flex flex-wrap">
+            <div className="grid grid-cols-2">
                 {category.length === 0 ? (
                     <div className=" text-ceneter text-yellow-400 font-semibold text-2xl flex    p-32 ">
                         <p>loading....</p>

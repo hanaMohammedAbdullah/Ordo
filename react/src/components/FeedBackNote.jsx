@@ -1,19 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Rating from "./Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/slice/cartSlice";
 
 const Order = ({ food, setShowModal }) => {
-    // const food = useSelector((state) => state.foods.singleFood); //get all foods from the store
-    console.log("food in cart ", food);
-    const dispatch = useDispatch();
-    // const getHandler = async () => {
-    //     dispatch(addToCart(food));
+    const noteRef = useRef();
 
-    //     return data;
-    // };
-
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(0);    
     return (
         <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">

@@ -1,12 +1,11 @@
 import React from "react";
-import Layout from "../Layouts/Layout";
 import Footer from "../components/Footer";
 import { FaArrowLeft, FaCartPlus } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import { CartItem } from "../components/CartItem";
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { CheckoutCart } from "../components/CheckoutCart";
 
-export const Cart = () => {
+export const Checkout = () => {
     const navigate = useNavigate();
     const cart = useSelector((state) => state.cart.cartItems);
 
@@ -35,7 +34,7 @@ export const Cart = () => {
                         </div>
                         <div className="flex items-center">
                             <h1 className="text-gray-800 text-xl font-bold">
-                                My Basket
+                                My Checkout
                             </h1>
                         </div>
                         <div className="flex items-center">
@@ -69,27 +68,33 @@ export const Cart = () => {
                         </div>
                     ) : (
                         cart.map((item) => (
-                            <CartItem
+                            <CheckoutCart
                                 key={item.id}
                                 id={item.id}
                                 quantity={item.quantity}
                                 price={item.price}
                                 feedbacks={item.feedbacks_avg_rating}
                                 name={item.name}
-                                item={item}
                             />
                         ))
                     )}
                 </div>
                 {/* total section */}
 
-                <div className="flex  flex-col text-center w-11/12 p-2 items-center mb-2">
-                    <Link
-                        to={"/checkout"}
-                        className="bg-yellow-500 w-full  text-white p-4  rounded "
-                    >
-                        Checkout
-                    </Link>
+                <div className="flex mt-12 flex-col w-11/12 p-2 items-center mb-2">
+                    <hr className="w-[100%] text-lg font-bold  bg-gray-300 h-1 shadow-md" />
+                    <div className="flex my-5  justify-between w-full  ">
+                        <div className="text-gray-800 text-xl font-bold  ">
+                            Total:
+                        </div>
+                        <div className="text-gray-800 text-xl font-bold     ">
+                            ${totalPrice}
+                        </div>
+                    </div>
+
+                    <button className="bg-yellow-500 w-full  text-white p-4  rounded ">
+                        Order
+                    </button>
                 </div>
             </div>
             <Footer />

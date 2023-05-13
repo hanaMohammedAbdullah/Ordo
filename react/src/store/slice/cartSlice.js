@@ -10,11 +10,9 @@ const cartSlice = createSlice({
   reducers: {
     //write a function to add to cart that increment if already exists or add new item
     addToCart: (state, payload) => {
-      console.log("payload  ", payload);
       const itemExists = state.cartItems.find(
         (item) => item.id === payload.payload.id
       );
-      console.log("itemExists ", itemExists);
       if (itemExists !== undefined) {
         itemExists.quantity++;
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -25,18 +23,32 @@ const cartSlice = createSlice({
     },
 
     //write a function to remove from cart that decrement if already exists or remove item
-    removeFromCart: (state, action) => {
+    decreaseQuantity: (state, action) => {
+      //removeFromCart
       const item = state.cartItems.find(
         (item) => item.id === action.payload.id
       );
-      if (item.quantity === 1) {
-        const index = state.cartItems.findIndex(
-          (item) => item.id === action.payload.id
-        );
-        state.cartItems.splice(index, 1);
-      } else {
+      if (item.quantity > 1) {
         item.quantity--;
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (item) => item.id !== action.payload.id
+        );
       }
+    },
+
+    increaseQuantity: (state, action) => {
+      //removeFromCart
+      const item = state.cartItems.find(
+        (item) => item.id === action.payload.id
+      );
+      item.quantity++;
+    },
+
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
     },
 
     //write a function to clear cart
@@ -46,5 +58,11 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  increaseQuantity,
+  decreaseQuantity,
+} = cartSlice.actions;
 export default cartSlice.reducer;

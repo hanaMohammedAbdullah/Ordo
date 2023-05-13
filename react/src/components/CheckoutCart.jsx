@@ -1,32 +1,21 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     removeFromCart,
     decreaseQuantity,
     increaseQuantity,
 } from "../store/slice/cartSlice";
 
-export const CartItem = ({ name, price, feedbacks, quantity, item }) => {
+export const CheckoutCart = ({ name, price, feedbacks, quantity, item }) => {
     function capitalizeFirstLetter(word) {
         return word.charAt(0).toUpperCase() + word.slice(1);
     }
-
-    const dispatch = useDispatch();
-    const handleDelete = () => {
-        dispatch(removeFromCart(item));
-    };
-    const handleIncrease = () => {
-        dispatch(increaseQuantity(item));
-    };
-    const handleDecrease = () => {
-        dispatch(decreaseQuantity(item));
-    };
 
     const capitalized = capitalizeFirstLetter(name);
 
     const Total = price * quantity;
     return (
-        <div className="border rounded m-4 p-1">
+        <div className="border  rounded m-4 p-1 shadow">
             <div className="flex content-evenly ">
                 <div className=" w-1/3 h-fit  m-0 ">
                     <img
@@ -48,27 +37,9 @@ export const CartItem = ({ name, price, feedbacks, quantity, item }) => {
                         </p>
                     )}
                     <div className="flex">
-                        <div className="flex  border items-center justify-center text-center  border-gray-700 rounded   w-fit">
-                            <button
-                                onClick={handleIncrease}
-                                className=" mr-2   rounded w-6 bg-orange-500 border-gray-400"
-                            >
-                                +
-                            </button>
-                            {quantity}
-                            <button
-                                onClick={handleDecrease}
-                                className="ml-2   rounded w-6 bg-orange-500 border-gray-400"
-                            >
-                                -
-                            </button>
+                        <div className="flex  items-center justify-center text-center    w-fit">
+                            x {quantity}
                         </div>
-                        <button
-                            className="ml-2   text-red-600 border-0"
-                            onClick={handleDelete}
-                        >
-                            Delete
-                        </button>
                     </div>
                 </div>
                 <div className="w-1/3 flex flex-col  justify-center ">
