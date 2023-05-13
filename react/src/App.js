@@ -13,6 +13,11 @@ import { Login } from "./pages/Admin/Login";
 import { store } from "./store/Store";
 import { ModalDatabases } from "./pages/Admin/ModalDatabases";
 import { Welcome } from "./pages/Welcome";
+import Menu from "./pages/Admin/Menu";
+import Adding from "./pages/Admin/Adding";
+import AddNewCategory from "./pages/Admin/adding/AddNewCategory";
+import AddNewSubCategory from "./pages/Admin/adding/AddNewSubCategory";
+import AddNewFood from "./pages/Admin/adding/AddNewFood";
 function App() {
   return (
     <div>
@@ -29,6 +34,11 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/food/:id" element={<FoodFix />} />
           <Route path="/add" element={<ModalDatabases />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/adding" element={<Adding />} />
+          <Route path="/adding/addNewCategory" element={<AddNewCategory />} />
+          <Route path="/adding/addNewSubCategory" element={<AddNewSubCategory />} />
+          <Route path="/adding/addNewFood" element={<AddNewFood />} />
           <Route path="/*" element={<Error />} />
           {/* {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />} */}
         </Routes>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const DashNav = () => {
     return (
@@ -34,8 +35,8 @@ export const DashNav = () => {
                                 </a>
                             </li>
                             <li className="rounded-sm">
-                                <a
-                                    href="#"
+                                <Link
+                                    to="/order"
                                     className="flex items-center p-2 space-x-3 rounded-md"
                                 >
                                     <svg
@@ -53,11 +54,11 @@ export const DashNav = () => {
                                         />
                                     </svg>
                                     <span>Order</span>
-                                </a>
+                                </Link>
                             </li>
                             <li className="rounded-sm">
-                                <a
-                                    href="/menu"
+                                <Link
+                                    to="/menu"
                                     className="flex items-center p-2 space-x-3 rounded-md"
                                 >
                                     <svg
@@ -71,15 +72,39 @@ export const DashNav = () => {
                                         <path
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
-                                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                                            d="M4 6h16M4 10h16M4 14h16M4 18h16"
                                         />
                                     </svg>
-                                    <span>menu</span>
-                                </a>
+
+                                    <span>Menu</span>
+                                </Link>
+                            </li>
+
+                            <li className="rounded-sm">
+                                <Link
+                                    to="/adding"
+                                    className="flex items-center p-2 space-x-3 rounded-md"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                        />
+                                    </svg>
+                                    <span>Adding</span>
+                                </Link>
                             </li>
                             <li className="rounded-sm">
-                                <a
-                                    href="/add"
+                                <Link
+                                    href="/setting"
                                     className="flex items-center p-2 space-x-3 rounded-md"
                                 >
                                     <svg
@@ -102,7 +127,7 @@ export const DashNav = () => {
                                         />
                                     </svg>
                                     <span>Settings</span>
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
