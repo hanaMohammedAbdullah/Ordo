@@ -94,7 +94,9 @@ const FoodDetail = () => {
                                 setShowModal={setAddingNote}
                             />
                         ) : null}
-                        {order ? <Order setShowModal={setOrder} /> : null}
+                        {order ? (
+                            <Order food={food} setShowModal={setOrder} />
+                        ) : null}
                     </div>
                 )}
             </Layout>

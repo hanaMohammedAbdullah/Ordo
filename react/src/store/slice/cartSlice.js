@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cartItems: [],
+  cartItems: [] || JSON.parse(localStorage.getItem("cartItems")),
 };
 
 const cartSlice = createSlice({
@@ -9,16 +9,17 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     //write a function to add to cart that increment if already exists or add new item
-    addToCart: (state, action) => {
+    addToCart: (state, payload) => {
+      console.log("payload  ", payload);
       const itemExists = state.cartItems.find(
-        (item) => item.id === action.payload.id
+        (item) => item.id === payload.payload.id
       );
       console.log("itemExists ", itemExists);
       if (itemExists !== undefined) {
         itemExists.quantity++;
-        console.log("payload action ", action);
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       } else {
-        state.cartItems.push(action.payload);
+        state.cartItems.push(payload.payload);
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
     },

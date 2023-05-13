@@ -1,15 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// export const getFoods = createAsyncThunk(async () => {
-//   try {
-//     const response = await axios.get(`${apiUrl}/menu/food-details`, {
-//       headers: { Authorization: `Bearer ${token}` },
-//     });
-//     // console.log("this is response in foods ", response.data);
-//     return [...response.data];
-//   } catch (error) {
-//     return error.message;
-//   }
-// });
+
 const initialState = {
   allFoods: [],
   status: "idle",

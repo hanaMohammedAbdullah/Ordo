@@ -5,10 +5,11 @@ import { useDispatch } from "react-redux";
 const FoodNote = ({ food, setShowModal }) => {
     const dispatch = useDispatch();
     // call
-
-    // a function handler that will add the food to the cart
+    let data = { ...food, quantity: 1, desk_id: 1, cart_id: 1 };
+    // console.log("food oder", food);
+    // useEffect(() => {}, []);
     const addToCartHandler = () => {
-        dispatch(addToCart(food));
+        dispatch(addToCart(data));
         setShowModal(false);
     };
 
