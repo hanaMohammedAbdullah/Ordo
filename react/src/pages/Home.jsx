@@ -1,53 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Layout from "../Layouts/Layout";
 import Category from "../components/Category";
-import FoodsPage from "./FoodsPage";
 import { getCategory } from "../service/apiServer";
-import { useEffect } from "react";
+import { setCategory } from "../store/slice/categorySlice";
 
 export default function Home() {
-    // const [data, setData] = useState(null);
-    const [categories, setcategories] = useState([]);
-
-    // console.log(qr);
-    let cat;
-    // let cat = getCategory();
-    // console.log("cat =  ckjnadsnckasnkl ", cat);
-    // setcategories(cat);
-    {
-        useEffect(() => {
-            let cats = getCategory();
-            // console.log("cat =  ckjnadsnckasnkl ", cat);
-            cats.then((data) => {
-                console.log("data =  ckjnadsnckasnkl ", data);
-                // cat = data;
-                // console.log("cat =  ckjnadsnckasnkl ", cat);
-                // setcategories(cat);
-            });
-
-            // dispatch(ha);
-        }, []);
-    }
-    categories.then((data) => {
-        console.log("data =  ckjnadsnckasnkl ", data);
-        // cat = data;
-        // console.log("cat =  ckjnadsnckasnkl ", cat);
-        // setcategories(cat);
-    });
-    // console.log("cat =  ckjnadsnckasnkl ", categories   );
+    const dispatch = useDispatch();
+    const category = useSelector((state) => state.category.category);
+    // console.log("first ", category);
+    // console.log("first ", foods);
+    const getHandler = async () => {
+        let date = await getCategory();
+        dispatch(setCategory(date));
+        // console.log("secound ", category);
+        return date;
+    };
+    // let data;
+    useEffect(() => {
+        getHandler();
+    }, [dispatch]);
     return (
         <Layout>
-            <div>
-                {cat ? (
-                    cat.map((category) => (
-                        <Category
-                            key={category.id}
-                            id={category.name}
-                            name={category.name}
-                        />
-                    ))
+            <div className="flex flex-wrap">
+                {category.length === 0 ? (
+                    <div className=" text-ceneter text-yellow-400 font-semibold text-2xl flex    p-32 ">
+                        <p>loading....</p>
+                    </div>
                 ) : (
-                    <div className="text-center text-2xl ">loading</div>
+                    category[0]
+                        .filter(
+                            (item, index, self) =>
+                                index ===
+                                self.findIndex((t) => t.name === item.name)
+                        )
+                        .map((category) => (
+                            <Category
+                                key={category.id}
+                                id={category.id}
+                                name={category.name}
+                            />
+                        ))
                 )}
             </div>
         </Layout>

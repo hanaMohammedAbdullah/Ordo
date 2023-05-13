@@ -1,5 +1,5 @@
 import React from "react";
-import { DashNav } from "../components/DashNav";
+import { DashNav } from "../../components/Admin/DashNav";
 import { Link } from "react-router-dom";
 
 export const ModalDatabases = () => {

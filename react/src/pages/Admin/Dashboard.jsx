@@ -1,6 +1,6 @@
 import React from "react";
-import FoodCartDashboard from "../components/FoodCartDashboard";
-import { DashNav } from "../components/DashNav";
+import FoodCartDashboard from "../../components/Admin/FoodCartDashboard";
+import { DashNav } from "../../components/Admin/DashNav";
 
 export const Dashboard = () => {
     let foods = [

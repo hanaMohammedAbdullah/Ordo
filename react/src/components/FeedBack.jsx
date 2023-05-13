@@ -1,4 +1,4 @@
-const FeedBack = ({ name, review, comment }) => {
+const FeedBack = ({ username, rating, description }) => {
     return (
         <div className="flex-col border-2 w-full mx-2 shadow-md rounded my-4  p-4">
             <div className="flex m-2 ">
@@ -8,11 +8,11 @@ const FeedBack = ({ name, review, comment }) => {
                     alt=""
                 />
                 <div className="flex-col justify-between">
-                    <h2 className="text-lg font-semibold	"> {name}</h2>
-                    <p className="text-slate-500	 ">{review}</p>
+                    <h2 className="text-lg font-semibold	"> {username}</h2>
+                    <p className="text-slate-500	 ">{rating}</p>
                 </div>
             </div>
-            <p className="m-2">{comment}</p>
+            <p className="m-2">{description}</p>
         </div>
     );
 };

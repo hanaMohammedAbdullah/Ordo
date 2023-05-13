@@ -26,8 +26,8 @@ class FoodDetailController extends Controller
             ->selectRaw('(select ROUND(avg(`feedbacks`.`rating`),1) from `feedbacks` where `foods`.`id` = `feedbacks`.`food_id`) as feedbacks_avg_rating')
             ->get();
 
-        return response()->json([
-            'food detail' => $foodDetail
-        ]);
+        return response()->json(
+            $foodDetail[0]
+        );
     }
 }

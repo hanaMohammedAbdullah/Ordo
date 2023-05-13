@@ -1,7 +1,7 @@
 import React from "react";
 import { FaPencilAlt, FaStar } from "react-icons/fa";
-import { DashboardNavbar } from "../components/DashboardNavbar";
-import FeedBack from "../components/FeedBack";
+import { DashboardNavbar } from "../../components/Admin/DashboardNavbar";
+import FeedBack from "../../components/FeedBack";
 
 export const FoodFix = () => {
     let feedback = [
