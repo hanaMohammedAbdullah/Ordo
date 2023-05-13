@@ -20,6 +20,8 @@ import Home from "./pages/Home";
 import { Welcome } from "./pages/Welcome";
 import { store } from "./store/Store";
 import { OrderPage } from "./pages/OrederPage";
+import CustomerOrders from "./pages/Admin/CustomerOrders";
+import MoreDetails from "./pages/Admin/MoreDetails";
 function App() {
   return (
     <div>
@@ -38,6 +40,9 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/food/:id" element={<FoodFix />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/orders" element={<CustomerOrders />} />
+          <Route path="/more-details" element={<MoreDetails />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/adding" element={<Adding />} />
           <Route path="/adding/addNewCategory" element={<AddNewCategory />} />
