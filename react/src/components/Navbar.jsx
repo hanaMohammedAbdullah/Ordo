@@ -44,7 +44,7 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className={showLinks ? "block" : "hidden"}>
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <div className="shadow-xl   mb-8 px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         <Link
                             to="/home"
                             className=" text-black block px-3 py-2 rounded-md text-base font-medium"
@@ -52,7 +52,7 @@ const Navbar = () => {
                             Home
                         </Link>
                         <Link
-                            to="/cart"
+                            to="/order"
                             className="text-black-300 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium"
                         >
                             My Ordered

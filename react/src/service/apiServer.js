@@ -232,3 +232,71 @@ export const setFeedbackFood = async (
     return error.message;
   }
 };
+
+// ADMIN SECTION
+// desk crud
+export const getAllDesk = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/admin/desks`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("this is response in get all desk ", response.data);
+
+    return response.data.desk;
+  } catch (error) {
+    console.log(error.message);
+
+    return error.message;
+  }
+};
+export const setNewDesk = async (number) => {
+  try {
+    const response = await axios.post(`${apiUrl}/admin/desks`, {
+      headers: { Authorization: `Bearer ${token}` },
+      body: {
+        number,
+      },
+    });
+    console.log("this is response in set new desk ", response.data);
+
+    return response.data.desk;
+  } catch (error) {
+    console.log(error.message);
+
+    return error.message;
+  }
+};
+
+export const setUpdateDesk = async (id, number) => {
+  try {
+    const response = await axios.put(`${apiUrl}/admin/desks/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      body: {
+        number,
+      },
+    });
+    console.log("this is response in set new desk ", response.data);
+
+    return response.data.desk;
+  } catch (error) {
+    console.log(error.message);
+
+    return error.message;
+  }
+};
+
+///subcategory crud
+export const getAllSubCategory = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/admin/sub-categories`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("this is response in get all subcategory ", response.data);
+
+    return response.data.subcategory;
+  } catch (error) {
+    console.log(error.message);
+
+    return error.message;
+  }
+};

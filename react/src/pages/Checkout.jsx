@@ -92,9 +92,12 @@ export const Checkout = () => {
                         </div>
                     </div>
 
-                    <button className="bg-yellow-500 w-full  text-white p-4  rounded ">
+                    <Link
+                        to={"/order"}
+                        className="bg-yellow-500 w-full text-center text-white p-4  rounded "
+                    >
                         Order
-                    </button>
+                    </Link>
                 </div>
             </div>
             <Footer />
