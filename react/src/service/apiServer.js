@@ -28,12 +28,23 @@ export const getFoodList = async () => {
       headers: { Authorization: `Bearer ${token}` },
     });
     // console.log("this is response in foods ", response.data);
-    return [...response.data];
+    return response.data;
   } catch (error) {
     return error.message;
   }
 };
 
+export const getSingleFood = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}/menu/food-details/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    // console.log("this is response in foods ", response.data);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
 export const qrlogin = async (qr) => {
   try {
     const response = await axios.post(`${apiUrl}/qr-login`, {
@@ -66,20 +77,20 @@ export const qrlogin = async (qr) => {
 //   // console.log("this is response in sinfle food ", response);
 // };
 
-export const getSingleFood = createAsyncThunk(
-  "/menu/food-details/:id",
-  async (id) => {
-    // console.log("this is token in sinfle food ", token);
-    try {
-      const response = await axios.get(`${apiUrl}/foods/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return response.data;
-    } catch (error) {
-      return error.message;
-    }
-  }
-);
+// export const getSingleFood = createAsyncThunk(
+//   "/menu/food-details/:id",
+//   async (id) => {
+//     // console.log("this is token in sinfle food ", token);
+//     try {
+//       const response = await axios.get(`${apiUrl}/foods/${id}`, {
+//         headers: { Authorization: `Bearer ${token}` },
+//       });
+//       return response.data;
+//     } catch (error) {
+//       return error.message;
+//     }
+//   }
+// );
 export const createFood = async (food) => {
   try {
     const response = await axios.post(`${apiUrl}/foods`, food, {

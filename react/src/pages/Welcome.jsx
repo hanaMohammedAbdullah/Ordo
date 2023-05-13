@@ -9,12 +9,12 @@ export const Welcome = () => {
     return (
         <div>
             <Layout>
-                <div className="   flex flex-col text-center">
-                    <div className="p-10 text-center text-2xl text-yellow-500">
+                <div className=" flex flex-col text-center py-24">
+                    <div className="p-10 text-center font-bold italic text-4xl text-yellow-500">
                         Welcome to the home page
                     </div>
                     <Link
-                        className="w-1/6  border bg-orange-400 border-slate-600 rounded-md  my-10 mx-auto text-2xl text-slate-600"
+                        className="w-2/6 p-4  border bg-orange-400 border-slate-600 rounded-md  my-10 mx-auto text-2xl text-slate-600 "
                         to={"/home"}
                     >
                         Home

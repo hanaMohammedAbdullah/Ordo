@@ -13,13 +13,13 @@ const cartSlice = createSlice({
       const itemExists = state.cartItems.find(
         (item) => item.id === action.payload.id
       );
-      if (itemExists) {
+      console.log("itemExists ", itemExists);
+      if (itemExists !== undefined) {
         itemExists.quantity++;
+        console.log("payload action ", action);
       } else {
-        state.cartItems = [
-          ...state.cartItems,
-          { ...action.payload, quantity: 1 },
-        ];
+        state.cartItems.push(action.payload);
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
     },
 

@@ -1,81 +1,81 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { apiUrl } from "../../service/apiServer";
-import { token } from "../../service/apiServer";
-export const getFoods = createAsyncThunk(async () => {
-  try {
-    const response = await axios.get(`${apiUrl}/menu/food-details`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    // console.log("this is response in foods ", response.data);
-    return [...response.data];
-  } catch (error) {
-    return error.message;
-  }
-});
+// export const getFoods = createAsyncThunk(async () => {
+//   try {
+//     const response = await axios.get(`${apiUrl}/menu/food-details`, {
+//       headers: { Authorization: `Bearer ${token}` },
+//     });
+//     // console.log("this is response in foods ", response.data);
+//     return [...response.data];
+//   } catch (error) {
+//     return error.message;
+//   }
+// });
 const initialState = {
   allFoods: [],
   status: "idle",
   error: null,
-  singleFood: {},
+  singleFood: {
+    feedbacks: [],
+  },
 };
 export const foodsSlice = createSlice({
   name: "foods",
   initialState,
-  // reducers: {
-  //   //creating a slicer to retrieve one food from the list of foods
-  //   getFood: (state, payload) => {
-  //     state.allFoods = payload.payload;
-  //   },
+  reducers: {
+    //creating a slicer to retrieve one food from the list of foods
+    setFood: (state, payload) => {
+      state.allFoods = payload.payload;
+    },
+    setSingleFood: (state, payload) => {
+      state.singleFood = payload.payload;
+    },
 
-  //   toggleToCart: (state, payload) => {
-  //     if (!state.allFoods[payload.payload.id].isItInCart) {
-  //       state.allFoods[payload.payload.id].isItInCart = true;
-  //     } else {
-  //       state.allFoods[payload.payload.id].isItInCart = false;
-  //     }
-  //     localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
-  //   },
-  //   changeCartQuantity: (state, payload) => {
-  //     state.allFoods[payload.payload.index].cartQuantity =
-  //       payload.payload.quantity;
-  //     localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
-  //   },
-  //   addFood: (state, payload) => {
-  //     state.allFoods.push(payload.payload);
-  //     localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
-  //   },
-  //   toggleDeleteFood: (state, payload) => {
-  //     const index = state.allFoods.findIndex((food) => {
-  //       return food.id === payload.payload.id;
-  //     });
-  //     state.allFoods[index].deleted = !state.allFoods[index].deleted;
-  //     localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
-  //   },
-  //   editFood: (state, payload) => {
-  //     const index = state.allFoods.findIndex((food) => {
-  //       return food.id === payload.payload.id;
-  //     });
-  //     state.allFoods[index] = payload.payload;
-  //     localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
-  //   },
-  // },
-
-  extraReducers: (builder) => {
-    builder.addCase(getFoods.pending, (state, action) => {
-      state.status = "loading";
-    });
-    builder.addCase(getFoods.fulfilled, (state, action) => {
-      state.status = "succeeded";
-      state.allFoods = action.payload;
-    });
-
-    builder.addCase(getFoods.rejected, (state, action) => {
-      state.status = "failed";
-      state.error = action.error.message;
-    });
+    toggleToCart: (state, payload) => {
+      if (!state.allFoods[payload.payload.id].isItInCart) {
+        state.allFoods[payload.payload.id].isItInCart = true;
+      } else {
+        state.allFoods[payload.payload.id].isItInCart = false;
+      }
+      localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
+    },
+    changeCartQuantity: (state, payload) => {
+      state.allFoods[payload.payload.index].cartQuantity =
+        payload.payload.quantity;
+      localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
+    },
+    addFood: (state, payload) => {
+      state.allFoods.push(payload.payload);
+      localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
+    },
+    toggleDeleteFood: (state, payload) => {
+      const index = state.allFoods.findIndex((food) => {
+        return food.id === payload.payload.id;
+      });
+      state.allFoods[index].deleted = !state.allFoods[index].deleted;
+      localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
+    },
+    editFood: (state, payload) => {
+      const index = state.allFoods.findIndex((food) => {
+        return food.id === payload.payload.id;
+      });
+      state.allFoods[index] = payload.payload;
+      localStorage.setItem("allFoods", JSON.stringify(state.allFoods));
+    },
   },
+
+  // extraReducers: (builder) => {
+  //   builder.addCase(getFoods.pending, (state, action) => {
+  //     state.status = "loading";
+  //   });
+  //   builder.addCase(getFoods.fulfilled, (state, action) => {
+  //     state.status = "succeeded";
+  //     state.allFoods = action.payload;
+  //   });
+
+  //   builder.addCase(getFoods.rejected, (state, action) => {
+  //     state.status = "failed";
+  //     state.error = action.error.message;
+  //   });
 });
 
 export default foodsSlice.reducer;
@@ -84,14 +84,16 @@ export const selectAllFoods = (state) => state.foods.allFoods;
 export const selectSingleFood = (state) => state.foods.singleFood;
 export const selectFoodStatus = (state) => state.foods.status;
 export const selectFoodError = (state) => state.foods.error;
-// export const {
-// toggleToCart,
-// changeCartQuantity,
-// addFood,
-// toggleDeleteFood,
-// editFood,
-// getFood,
-// } = foodsSlice.actions;
+export const {
+  toggleToCart,
+  changeCartQuantity,
+  addFood,
+  toggleDeleteFood,
+  editFood,
+  getFood,
+  setFood,
+  setSingleFood,
+} = foodsSlice.actions;
 
 // {
 //   id: 30,
