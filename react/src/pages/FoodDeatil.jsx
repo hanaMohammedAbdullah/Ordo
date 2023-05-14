@@ -77,16 +77,17 @@ const FoodDetail = () => {
                                 FeedBack
                             </button>
                         </div>
-                        {food.feedbacks.map((food) => {
-                            return (
-                                <FeedBack
-                                    key={food.id}
-                                    username={food.username}
-                                    description={food.description}
-                                    rating={food.rating}
-                                />
-                            );
-                        })}
+                        {food &&
+                            food.feedbacks.map((food) => {
+                                return (
+                                    <FeedBack
+                                        key={food.id}
+                                        username={food.username}
+                                        description={food.description}
+                                        rating={food.rating}
+                                    />
+                                );
+                            })}
 
                         {addingNote ? (
                             <FoodNote

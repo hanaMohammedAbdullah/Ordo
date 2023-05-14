@@ -8,22 +8,18 @@ import Category from "../components/Category/Category";
 export default function Home() {
     const dispatch = useDispatch();
     const category = useSelector((state) => state.category.category);
-    // console.log("first ", category);
-    // console.log("first ", foods);
     const getHandler = async () => {
         let date = await getCategory();
         dispatch(setCategory(date));
-        // console.log("secound ", category);
         return date;
     };
-    // let data;
     useEffect(() => {
         getHandler();
     }, [dispatch]);
     return (
         <Layout>
             <div className="grid grid-cols-2">
-                {category.length === 0 ? (
+                {category && category.length === 0 ? (
                     <div className=" text-ceneter text-yellow-400 font-semibold text-2xl flex    p-32 ">
                         <p>loading....</p>
                     </div>

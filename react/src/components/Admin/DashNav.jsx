@@ -8,13 +8,15 @@ export const DashNav = () => {
             <div className="flex flex-col h-screen p-3 bg-white shadow w-60">
                 <div className="space-y-3">
                     <div className="flex items-center">
-                        <h2 className="text-xl font-bold">Dashboard</h2>
+                        <h2 className="text-xl text-yellow-400 font-bold">
+                            Ordo Dashboard
+                        </h2>
                     </div>
                     <div className="flex-1">
                         <ul className="pt-2 pb-4 space-y-1 text-sm">
                             <li className="rounded-sm">
                                 <a
-                                    href="/"
+                                    href="/dashboard"
                                     className="flex items-center p-2 space-x-3 rounded-md"
                                 >
                                     <svg
@@ -102,7 +104,7 @@ export const DashNav = () => {
                                     <span>Adding</span>
                                 </Link>
                             </li>
-                            <li className="rounded-sm">
+                            {/* <li className="rounded-sm">
                                 <Link
                                     href="/setting"
                                     className="flex items-center p-2 space-x-3 rounded-md"
@@ -128,7 +130,7 @@ export const DashNav = () => {
                                     </svg>
                                     <span>Settings</span>
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>

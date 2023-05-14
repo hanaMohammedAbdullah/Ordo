@@ -5,15 +5,17 @@ export const apiUrl = "http://localhost:8000/api";
 
 export let token = isTokenValid() ? localStorage.getItem("token") : "";
 export const login = async (email, password) => {
+  console.log("header req ", email, password);
   try {
-    const response = await axios.post(`${apiUrl}/users/login`, {
+    const response = await axios.post(`${apiUrl}/login`, {
       email,
       password,
     });
+    token = response.data.token;
+    console.log("header req ", response.data.token);
     const expirationTime = new Date().getTime() + 3600000; // expiration time in milliseconds (1 hour)
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
-    token = response.data.token;
     return response.data;
   } catch (error) {
     console.log(error.message);
@@ -290,9 +292,9 @@ export const getAllSubCategory = async () => {
     const response = await axios.get(`${apiUrl}/admin/sub-categories`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("this is response in get all subcategory ", response.data);
+    // console.log("this is response in get all subcategory ", response.data);
 
-    return response.data;
+    return response.data.sub_category.data;
   } catch (error) {
     console.log(error.message);
 
@@ -358,9 +360,9 @@ export const getAllCategory = async () => {
     const response = await axios.get(`${apiUrl}/admin/categories`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("this is response in get all category ", response.data);
+    // console.log("this is response in get all category ", response.data);
 
-    return response.data;
+    return response.data.category.data;
   } catch (error) {
     console.log(error.message);
 
@@ -423,7 +425,7 @@ export const getAllFood = async () => {
     });
     console.log("this is response in get all food ", response.data);
 
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.log(error.message);
 

@@ -24,7 +24,7 @@ const FoodsPage = () => {
     return (
         <Layout>
             <div className=" grid grid-cols-2 sm:grid-cols-3 space-x-4">
-                {foods.length !== 0 ? (
+                {foods && foods.length !== 0 ? (
                     foods.map((food) => {
                         return (
                             <FoodCard

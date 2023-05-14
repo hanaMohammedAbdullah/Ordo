@@ -61,7 +61,7 @@ export const OrderPage = () => {
             </nav>
             <div className="w-full  ">
                 <div className=" h-5/6 border-2 rounded">
-                    {cart.length === 0 ? (
+                    {cart && cart.length === 0 ? (
                         <div className="	 text-center py-60">
                             <h1 className="text-gray-800  w-full text-2xl  font-bold     ">
                                 No Orders

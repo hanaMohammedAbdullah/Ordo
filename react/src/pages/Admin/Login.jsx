@@ -1,35 +1,58 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { login } from "../../service/apiServer";
 
 export const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
     const dispatch = useDispatch();
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (email === "admin@Ordo.com" && password === "password") {
-            setLoggedIn(true);
-            // dispatch(user({ email, password }))
-            //     .then(() => {
-            //         setLoggedIn(true);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
-        }
-    };
     const navigate = useNavigate();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const emailValue = emailRef.current.value;
+        const passwordValue = passwordRef.current.value;
+        let user = {
+            email: emailValue,
+            password: passwordValue,
+        };
+        getHandler(user);
+        // do something with emailValue and passwordValue
+    };
+
+    // const handleSubmit = (e) => {
+    // e.preventDefault();
+    // if (email === "admin@Ordo.com" && password === "12345678") {
+    //     let user = {
+    //         email: email,
+    //         password: password,
+    //     };
+
+    // console.log("this is user", user);
+    // getHandler(user);
+    // setLoggedIn(true);
+    // dispatch(user({ email, password }))
+    //     .then(() => {
+    //         setLoggedIn(true);
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+    // }
+    // if (email !== "admin@Ordo.com" && password !== "12345678") {
+    // alert("Invalid Email and Password");
+    // }
+    // };
+    const getHandler = async (user) => {
+        let data = await login(user.email, user.password);
+        // dispatch(setFood(data));
+        // setPassword(data);
+        setLoggedIn(true);
+
+        return data;
+    };
 
     if (loggedIn) {
         navigate("/dashboard");
@@ -45,7 +68,7 @@ export const Login = () => {
                     <form className="mt-6" onSubmit={handleSubmit}>
                         <div className="mb-2">
                             <label
-                                for="email"
+                                htmlFor="email"
                                 className="block text-sm font-semibold text-gray-800"
                             >
                                 Email
@@ -54,13 +77,12 @@ export const Login = () => {
                                 type="email"
                                 className="block w-full px-4 py-2 mt-2 text-yellow-700 bg-white border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 id="email"
-                                value={email}
-                                onChange={handleEmailChange}
+                                ref={emailRef}
                             />
                         </div>
                         <div className="mb-2">
                             <label
-                                for="password"
+                                htmlFor="password"
                                 className="block text-sm font-semibold text-gray-800"
                             >
                                 Password
@@ -69,8 +91,7 @@ export const Login = () => {
                                 type="password"
                                 className="block w-full px-4 py-2 mt-2 text-yellow-700 bg-white border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 id="password"
-                                value={password}
-                                onChange={handlePasswordChange}
+                                ref={passwordRef}
                             />
                         </div>
 

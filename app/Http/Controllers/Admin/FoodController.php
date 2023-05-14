@@ -16,7 +16,7 @@ class FoodController extends Controller
 
     public function index()
     {
-        $foods = Food::latest()->paginate(7);
+        $foods = Food::latest()->paginate();
 
         return  FoodCollection::collection($foods);
     }
