@@ -40,7 +40,7 @@ export default function Menu() {
                                 {/* mt-1 text-3xl font-semibold text-gray-900 */}
                                 {category && category.length === 0
                                     ? "No Category Available"
-                                    : "Total category       " +
+                                    : " categories       " +
                                       category.filter(
                                           (item, index, self) =>
                                               index ===
@@ -99,7 +99,7 @@ export default function Menu() {
                                 {/* mt-1 text-3xl font-semibold text-gray-900 */}
                                 {subcategory && subcategory.length === 0
                                     ? "No sub category  Available"
-                                    : "Total Food       " +
+                                    : "Subcategories       " +
                                       subcategory.filter(
                                           (item, index, self) =>
                                               index ===

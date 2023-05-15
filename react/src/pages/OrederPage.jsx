@@ -76,6 +76,7 @@ export const OrderPage = () => {
                                 price={item.price}
                                 feedbacks={item.feedbacks_avg_rating}
                                 name={item.name}
+                                item={item}
                             />
                         ))
                     )}

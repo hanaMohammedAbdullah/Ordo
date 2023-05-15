@@ -15,6 +15,8 @@ const FoodDetail = () => {
     const dispatch = useDispatch();
     const food = useSelector((state) => state.foods.singleFood); //get all foods from the store
 
+
+    
     // console.log("dood  ", food);
 
     const getHandler = async () => {

@@ -27,6 +27,7 @@ export const getFoodList = async () => {
   try {
     const response = await axios.get(`${apiUrl}/menu/food-details`, {
       headers: { Authorization: `Bearer ${token}` },
+      withCredentials: false,
     });
     // console.log("this is response in foods ", response.data);
     return response.data;
@@ -39,6 +40,7 @@ export const getSingleFood = async (id) => {
   try {
     const response = await axios.get(`${apiUrl}/menu/food-details/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
+      "Access-Control-Allow-Origin": "*",
     });
     // console.log("this is response in foods ", response.data);
     return response.data;
@@ -62,36 +64,7 @@ export const qrlogin = async (qr) => {
     return error.message;
   }
 };
-// export const getSingleFood = async (id) => {
-//   try {
-//     const response = await axios.get(`${apiUrl}/menu/food-details/${id}`, {
-//       headers: { Authorization: `Bearer ${token}` },
-//     });
-//     return response.data;
-//   } catch (error) {
-//     return error.message;
-//   }
 
-//   // console.log("this is token in sinfle food ", token);
-//   // write for me a logic that sending the sinlge dat object to the food state in store
-
-//   // console.log("this is response in sinfle food ", response);
-// };
-
-// export const getSingleFood = createAsyncThunk(
-//   "/menu/food-details/:id",
-//   async (id) => {
-//     // console.log("this is token in sinfle food ", token);
-//     try {
-//       const response = await axios.get(`${apiUrl}/foods/${id}`, {
-//         headers: { Authorization: `Bearer ${token}` },
-//       });
-//       return response.data;
-//     } catch (error) {
-//       return error.message;
-//     }
-//   }
-// );
 export const createFood = async (food) => {
   try {
     const response = await axios.post(`${apiUrl}/foods`, food, {
@@ -142,14 +115,13 @@ export const getCategory = async () => {
 //    cart sectiuon
 export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
   try {
-    const response = await axios.post(`${apiUrl}/carts/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
-        deskNumber,
-        foodId,
-        quantity,
-      },
-    });
+    const response = await axios.post(
+      `${apiUrl}/carts/${id}`,
+      { deskNumber: deskNumber, foodId : foodId, quantity : quantity },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in carts  id food ", response.data);
     return response.data;
   } catch (error) {
@@ -160,10 +132,10 @@ export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
 export const getCarts = async (deskNumber) => {
   try {
     const response = await axios.post(`${apiUrl}/carts`, {
+      deskNumber,
+    },{
       headers: { Authorization: `Bearer ${token}` },
-      body: {
-        deskNumber,
-      },
+
     });
     console.log("this is response in get carts  carts ", response.data);
     return response.data;
@@ -176,14 +148,12 @@ export const setOrderCart = async (
   { deskNumber, food_id, quantity, note }
 ) => {
   try {
-    const response = await axios.post(`${apiUrl}/orders`, {
+    const response = await axios.post(`${apiUrl}/orders`,{deskNumber,
+      food_id,
+      quantity,
+      note,} ,{
       headers: { Authorization: `Bearer ${token}` },
-      body: {
-        deskNumber,
-        food_id,
-        quantity,
-        note,
-      },
+
     });
     console.log("this is response in set order cart  ", response.data);
     return response.data;
@@ -216,18 +186,22 @@ export const cancelOrderCart = async (id_cart) => {
 /// note for food foodback
 export const setFeedbackFood = async (
   id_food,
-  { username, rating, description }
+  username,
+  rating,
+  description
 ) => {
+  console.log("this is id food in setFeedbackFood token ", token);
   try {
-    const response = await axios.post(`${apiUrl}feedback/foods/${id_food}`, {
+    const response = await axios.post(`${apiUrl}/feedback/foods/${id_food}`, {
       headers: { Authorization: `Bearer ${token}` },
+
       body: {
         username,
         rating,
         description,
       },
     });
-    console.log("this is response in carts  id food ", response.data);
+    console.log("this is response setFeedbackFood ", response.data);
     return response.data;
   } catch (error) {
     return error.message;
@@ -303,13 +277,16 @@ export const getAllSubCategory = async () => {
 };
 export const setNewSubCategory = async (name, categoryName) => {
   try {
-    const response = await axios.post(`${apiUrl}/admin/sub-categories`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
-        name,
-        categoryName,
+    const response = await axios.post(
+      `${apiUrl}/admin/sub-categories`,
+      {
+        name: name,
+        categoryName: categoryName,
       },
-    });
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set new subcategory ", response.data);
 
     return response.data;
@@ -321,13 +298,16 @@ export const setNewSubCategory = async (name, categoryName) => {
 };
 export const setUpdateSubCategory = async (id, name, categoryName) => {
   try {
-    const response = await axios.put(`${apiUrl}/admin/sub-categories/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
+    const response = await axios.put(
+      `${apiUrl}/admin/sub-categories/${id}`,
+      {
         name,
         categoryName,
       },
-    });
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set new subcategory ", response.data);
 
     return response.data;
@@ -371,29 +351,34 @@ export const getAllCategory = async () => {
 };
 export const setNewCategory = async (name) => {
   try {
-    const response = await axios.post(`${apiUrl}/admin/categories`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
+    const response = await axios.post(
+      `${apiUrl}/admin/categories`,
+      {
         name,
       },
-    });
-    console.log("this is response in set new category ", response.data);
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("this is response in set new category ", response.d);
 
     return response.data;
   } catch (error) {
     console.log(error.message);
-
-    return error.message;
   }
 };
+
 export const setUpdateCategory = async (id, name) => {
   try {
-    const response = await axios.put(`${apiUrl}/admin/categories/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
+    const response = await axios.put(
+      `${apiUrl}/admin/categories/${id}`,
+      {
         name,
       },
-    });
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set new category ", response.data);
 
     return response.data;
@@ -439,13 +424,13 @@ export const setNewFood = async (
   categoryName,
   description,
   availability,
-  time,
-  image
+  time
+  // image
 ) => {
   try {
-    const response = await axios.post(`${apiUrl}/admin/foods`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
+    const response = await axios.post(
+      `${apiUrl}/admin/foods`,
+      {
         name,
         price,
         subcategoryName,
@@ -453,9 +438,12 @@ export const setNewFood = async (
         description,
         availability,
         time,
-        image,
+        // image,
       },
-    });
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set new food ", response.data);
 
     return response.data;
@@ -530,12 +518,15 @@ export const getAllOrder = async () => {
 };
 export const setUpdateOrder = async (id, status) => {
   try {
-    const response = await axios.put(`${apiUrl}/admin/orders/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
+    const response = await axios.put(
+      `${apiUrl}/admin/orders/${id}`,
+      {
         status,
       },
-    });
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set new order ", response.data);
 
     return response.data;

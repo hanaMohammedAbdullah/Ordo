@@ -1,20 +1,23 @@
-import { useEffect, useRef, useState } from "react";
-import Rating from "./Rating";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../store/slice/cartSlice";
+import { useRef,useState } from "react";
 import { setFeedbackFood } from "../service/apiServer";
+import Rating from "./Rating";
 
 const Order = ({ food, setShowModal }) => {
-    const noteRef = useRef();
-
+    const noteref = useRef();
+    const nameref = useRef();
     const [rating, setRating] = useState(0);
     // use a hundler to swnd this to setfeedback in the api and then to the database
     const setFeedbackHandler = async () => {
-        let date = await setFeedbackFood();
+        const username = nameref.current.value;
+        const note = noteref.current.value;
+        // const rating = rating;
+
+        let date = await setFeedbackFood(food.id, username, rating, note);
+        console.log("note data ", date);
         // dispatch(setCategory(date));
         setShowModal(false);
         // console.log("secound ", category);
-        return date;
+        // return date;
     };
 
     return (
@@ -37,23 +40,25 @@ const Order = ({ food, setShowModal }) => {
                         </div>
                         {/*body*/}
                         <div className="px-3 py-4">
-                            <p>
+                            <div>
                                 Name :{" "}
                                 <input
+                                    ref={nameref}
                                     className="border w-11/12 border-gray-400 rounded-md"
                                     type="text"
                                     placeholder="Enter your name"
                                 />
-                            </p>
-                            <p>
+                            </div>
+                            <div>
                                 Rate{" "}
                                 <Rating rating={rating} setRating={setRating} />
-                            </p>
+                            </div>
                             <div className="relative p-6 flex-auto">
                                 <textarea
                                     name="content"
                                     id="content"
                                     placeholder="Enter your note here"
+                                    ref={noteref}
                                     // value={content}
                                     // onChange={}
                                     className="mt-1 focus:ring-green-500 focus:border-green-500 block w-11/12 sm:text-sm border-gray-400 rounded-md "
@@ -66,14 +71,14 @@ const Order = ({ food, setShowModal }) => {
                             <button
                                 className="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
-                                onClick={() => setFeedbackHandler()}
+                                onClick={() => setShowModal()}
                             >
                                 Cancel
                             </button>
                             <button
                                 className="bg-orange-500 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
-                                onClick={() => setShowModal()}
+                                onClick={() => setFeedbackHandler()}
                             >
                                 Note
                             </button>

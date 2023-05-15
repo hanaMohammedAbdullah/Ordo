@@ -1,25 +1,27 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineUpload } from "react-icons/ai";
+import { setNewCategory } from "../../../service/apiServer";
 
 function AddCategoryForm() {
-    const [categoryName, setCategoryName] = useState("");
+    // const [categoryName, setCategoryName] = useState("");
+    const nameref = useRef(null);
     const [file, setFile] = useState(null);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Submitted!", categoryName, file);
+    const handleSubmit = async () => {
+        const categoryName = nameref.current.value;
+        const category = await setNewCategory(categoryName);
+        console.log("Submitted!", category);
     };
 
     return (
-        <form className="max-w-md mx-auto my-4 p-4 ">
+        <div className="max-w-md mx-auto my-4 p-4 ">
             <h2 className="text-lg font-semibold mb-4">Add a new category</h2>
             <div className="mb-4">
                 <label className="block font-medium mb-2">Category Name</label>
                 <input
                     type="text"
                     className="w-full border-gray-300 rounded-md shadow-lg border  p-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                    value={categoryName}
-                    onChange={(e) => setCategoryName(e.target.value)}
+                    ref={nameref}
                 />
             </div>
             <div className="mb-4">
@@ -42,7 +44,7 @@ function AddCategoryForm() {
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={(e) => setFile(e.target.files[0])}
+                    // onChange={(e) => setFile(e.target.files[0])}
                 />
             </div>
             <button
@@ -52,7 +54,7 @@ function AddCategoryForm() {
             >
                 Submit
             </button>
-        </form>
+        </div>
     );
 }
 

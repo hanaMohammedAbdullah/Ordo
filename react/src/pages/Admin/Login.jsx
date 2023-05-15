@@ -1,11 +1,10 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../service/apiServer";
 
 export const Login = () => {
     const [loggedIn, setLoggedIn] = useState(false);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -46,12 +45,18 @@ export const Login = () => {
     // }
     // };
     const getHandler = async (user) => {
-        let data = await login(user.email, user.password);
+        if (user.email === "admin@ordo.com" || user.password === "12345678") {
+            let data = await login(user.email, user.password);
+            // alert("Please fill all the fields");
+            setLoggedIn(true);
+            return data;
+        } else {
+            alert("Invalid Email and Password");
+        }
         // dispatch(setFood(data));
         // setPassword(data);
-        setLoggedIn(true);
 
-        return data;
+        // return data;
     };
 
     if (loggedIn) {

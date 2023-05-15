@@ -1,5 +1,7 @@
 import React from "react";
 import { AnimatedLine } from "./AnimationLine";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../store/slice/cartSlice";
 
 export const OrderedCart = ({ name, price, quantity, item }) => {
     function capitalizeFirstLetter(word) {
@@ -7,6 +9,10 @@ export const OrderedCart = ({ name, price, quantity, item }) => {
     }
 
     const capitalized = capitalizeFirstLetter(name);
+    const dispatch = useDispatch();
+    const handleDelete = () => {
+        dispatch(removeFromCart(item));
+    };
 
     const Total = price * quantity;
     return (
@@ -29,7 +35,7 @@ export const OrderedCart = ({ name, price, quantity, item }) => {
                         {Total} mint
                     </p>
                     <button
-                        // onClick={""}
+                        onClick={handleDelete}
                         className="m-3 border bg-orange-200 rounded"
                     >
                         cancel
