@@ -117,7 +117,7 @@ export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
   try {
     const response = await axios.post(
       `${apiUrl}/carts/${id}`,
-      { deskNumber: deskNumber, foodId : foodId, quantity : quantity },
+      { deskNumber: deskNumber, foodId: foodId, quantity: quantity },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -131,12 +131,15 @@ export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
 
 export const getCarts = async (deskNumber) => {
   try {
-    const response = await axios.post(`${apiUrl}/carts`, {
-      deskNumber,
-    },{
-      headers: { Authorization: `Bearer ${token}` },
-
-    });
+    const response = await axios.post(
+      `${apiUrl}/carts`,
+      {
+        deskNumber,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in get carts  carts ", response.data);
     return response.data;
   } catch (error) {
@@ -148,13 +151,13 @@ export const setOrderCart = async (
   { deskNumber, food_id, quantity, note }
 ) => {
   try {
-    const response = await axios.post(`${apiUrl}/orders`,{deskNumber,
-      food_id,
-      quantity,
-      note,} ,{
-      headers: { Authorization: `Bearer ${token}` },
-
-    });
+    const response = await axios.post(
+      `${apiUrl}/orders`,
+      { deskNumber, food_id, quantity, note },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set order cart  ", response.data);
     return response.data;
   } catch (error) {
@@ -166,7 +169,6 @@ export const getOrderCart = async () => {
     const response = await axios.get(`${apiUrl}/orders`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("this is response in carts  id food ", response.data);
     return response.data;
   } catch (error) {
     return error.message;
@@ -177,7 +179,6 @@ export const cancelOrderCart = async (id_cart) => {
     const response = await axios.delete(`${apiUrl}/orders/${id_cart}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("this is response in carts  id food ", response.data);
     return response.data;
   } catch (error) {
     return error.message;
@@ -190,17 +191,18 @@ export const setFeedbackFood = async (
   rating,
   description
 ) => {
-  console.log("this is id food in setFeedbackFood token ", token);
   try {
-    const response = await axios.post(`${apiUrl}/feedback/foods/${id_food}`, {
-      headers: { Authorization: `Bearer ${token}` },
-
-      body: {
+    const response = await axios.post(
+      `${apiUrl}/feedback/foods/${id_food}`,
+      {
         username,
         rating,
         description,
       },
-    });
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response setFeedbackFood ", response.data);
     return response.data;
   } catch (error) {
@@ -226,12 +228,13 @@ export const getAllDesk = async () => {
 };
 export const setNewDesk = async (number) => {
   try {
-    const response = await axios.post(`${apiUrl}/admin/desks`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
-        number,
-      },
-    });
+    const response = await axios.post(
+      `${apiUrl}/admin/desks`,
+      { number },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set new desk ", response.data);
 
     return response.data;
@@ -244,12 +247,13 @@ export const setNewDesk = async (number) => {
 
 export const setUpdateDesk = async (id, number) => {
   try {
-    const response = await axios.put(`${apiUrl}/admin/desks/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
-        number,
-      },
-    });
+    const response = await axios.put(
+      `${apiUrl}/admin/desks/${id}`,
+      { number },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set new desk ", response.data);
 
     return response.data;
@@ -325,7 +329,6 @@ export const setDeleteSubCategory = async (id) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("this is response in set new subcategory ", response.data);
 
     return response.data.subcategory;
   } catch (error) {
@@ -465,9 +468,9 @@ export const setUpdateFood = async (
   image
 ) => {
   try {
-    const response = await axios.put(`${apiUrl}/admin/foods/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      body: {
+    const response = await axios.put(
+      `${apiUrl}/admin/foods/${id}`,
+      {
         name,
         price,
         subcategoryName,
@@ -477,7 +480,10 @@ export const setUpdateFood = async (
         time,
         image,
       },
-    });
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     console.log("this is response in set new food ", response.data);
 
     return response.data;
