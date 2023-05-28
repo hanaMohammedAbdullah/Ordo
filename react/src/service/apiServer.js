@@ -140,7 +140,22 @@ export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
     return error.message;
   }
 };
-
+// creating and end ponit with the carts/:id as apost o store the carts
+export const setCart = async ({ deskNumber, foodId, quantity }) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/carts`,
+      { deskNumber: deskNumber, foodId: foodId, quantity: quantity },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("this is response in carts  id food ", response.data);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
 export const getCarts = async (deskNumber) => {
   try {
     const response = await axios.post(

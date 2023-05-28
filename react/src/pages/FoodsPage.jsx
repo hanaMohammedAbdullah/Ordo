@@ -57,6 +57,7 @@ const FoodsPage = () => {
                             <FoodCard
                                 key={food.id}
                                 id={food.id}
+                                deskNum={param.id}
                                 name={food.name}
                                 price={food.price}
                                 imageSrc={
