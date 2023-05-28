@@ -32,7 +32,7 @@ export default function Category({ id, name }) {
     return (
         <div className="flex w-fit flex-col item-center md:grid md:grid-cols-2 items-center  gap-x-4 gap-y-3 m-7 ">
             <Link
-                to={`/category/${name}`}
+                to={`/category/${id}`}
                 className={`${colorClass}  p-8 w-full text-lg font-bold text-white`}
             >
                 <h1>{name}</h1>

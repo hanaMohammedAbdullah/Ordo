@@ -111,7 +111,19 @@ export const getCategory = async () => {
     return error.message;
   }
 };
-
+// create a get for this end point menu/categories/:id
+export const getSingleCategory = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}/menu/categories/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("this is response insub category ", response.data[0].foods);
+    return response.data[0].foods;
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};
 //    cart sectiuon
 export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
   try {
@@ -427,8 +439,8 @@ export const setNewFood = async (
   categoryName,
   description,
   availability,
-  time
-  // image
+  time,
+  image
 ) => {
   try {
     const response = await axios.post(
@@ -441,7 +453,7 @@ export const setNewFood = async (
         description,
         availability,
         time,
-        // image,
+        image,
       },
       {
         headers: { Authorization: `Bearer ${token}` },

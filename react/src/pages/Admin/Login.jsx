@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../service/apiServer";
 
@@ -18,45 +17,16 @@ export const Login = () => {
             password: passwordValue,
         };
         getHandler(user);
-        // do something with emailValue and passwordValue
     };
 
-    // const handleSubmit = (e) => {
-    // e.preventDefault();
-    // if (email === "admin@Ordo.com" && password === "12345678") {
-    //     let user = {
-    //         email: email,
-    //         password: password,
-    //     };
-
-    // console.log("this is user", user);
-    // getHandler(user);
-    // setLoggedIn(true);
-    // dispatch(user({ email, password }))
-    //     .then(() => {
-    //         setLoggedIn(true);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-    // }
-    // if (email !== "admin@Ordo.com" && password !== "12345678") {
-    // alert("Invalid Email and Password");
-    // }
-    // };
     const getHandler = async (user) => {
         if (user.email === "admin@ordo.com" || user.password === "12345678") {
             let data = await login(user.email, user.password);
-            // alert("Please fill all the fields");
             setLoggedIn(true);
             return data;
         } else {
             alert("Invalid Email and Password");
         }
-        // dispatch(setFood(data));
-        // setPassword(data);
-
-        // return data;
     };
 
     if (loggedIn) {

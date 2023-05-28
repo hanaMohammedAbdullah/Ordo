@@ -1,19 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../Layouts/Layout";
 import FoodCard from "../components/FoodCard";
-import { getFoodList } from "../service/apiServer";
+import { getFoodList, getSingleCategory } from "../service/apiServer";
 import { setFood } from "../store/slice/foodsSlice";
+import { getAllSubCategory } from "../service/apiServer";
+import { useParams } from "react-router-dom";
 
 const FoodsPage = () => {
     // const [foods, setFood] = useState([]);
     const dispatch = useDispatch();
-    const foods = useSelector((state) => state.foods.allFoods); //get all foods from the store
+    const foods = useSelector((state) => state.foods.allFoods);
+    const param = useParams();
+    console.log("thois is params", param.id);
+    //get all foods from the store
     // console.log("first ", foods);
     const getHandler = async () => {
         let data = await getFoodList();
         dispatch(setFood(data));
+        let foodsSub = await getSingleCategory(param.id);
+        setSubCategory(foodsSub);
         return data;
     };
     // let data;
@@ -21,8 +28,28 @@ const FoodsPage = () => {
         getHandler();
     }, [dispatch]);
 
+    // make a usetsate for the subcategory
+    const [subCategory, setSubCategory] = useState([]);
     return (
         <Layout>
+            <div className="flex justify-between items-center">
+                {subCategory && subCategory === [] ? (
+                    subCategory.map((sub) => {
+                        return (
+                            <div
+                                key={sub.id}
+                                className="bg-yellow-400 text-white font-semibold text-center rounded-md m-5 p-2"
+                            >
+                                {sub.name}
+                            </div>
+                        );
+                    })
+                ) : (
+                    <div className=" text-ceneter text-yellow-400 font-semibold text-2xl flex mx-auto  ">
+                        <p> </p>
+                    </div>
+                )}
+            </div>
             <div className=" grid grid-cols-2 sm:grid-cols-3 space-x-4">
                 {foods && foods.length !== 0 ? (
                     foods.map((food) => {

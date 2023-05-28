@@ -4,14 +4,6 @@ import { useState } from "react";
 import { setNewFood } from "../../../service/apiServer";
 
 function AddNewFoodForm() {
-    //  name,
-    //   price,
-    //   subcategoryName,
-    //   categoryName,
-    //   description,
-    //   availability,
-    //   time,
-    //   image
     const nameref = useRef(null);
     const priceref = useRef(null);
     const subnameref = useRef(null);
@@ -19,10 +11,10 @@ function AddNewFoodForm() {
     const descriptionref = useRef(null);
     const availabilityref = useRef(null);
     const timeref = useRef(null);
-    const setFile = useRef(null);
-    // const [file, setFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    console.log("this is image ", selectedFile);
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
         const name = nameref.current.value;
         const price = priceref.current.value;
         const subcategoryName = subnameref.current.value;
@@ -30,8 +22,7 @@ function AddNewFoodForm() {
         const description = descriptionref.current.value;
         const availability = availabilityref.current.value;
         const time = timeref.current.value;
-        const image = setFile.current.value;
-
+        let image = selectedFile;
         const category = await setNewFood(
             name,
             price,
@@ -42,10 +33,11 @@ function AddNewFoodForm() {
             time,
             image
         );
+
         console.log("Submitted!", category);
     };
     return (
-        <div className="max-w-md mx-auto my-4 p-4 ">
+        <form className="max-w-md mx-auto my-4 p-4 " onSubmit={handleSubmit}>
             <h2 className="text-lg font-semibold mb-4">Add New Food to menu</h2>
             <div className="mb-4">
                 <label className="block text-xs font-bold mb-2">
@@ -136,17 +128,17 @@ function AddNewFoodForm() {
                 <input
                     type="file"
                     accept="image/*"
-                    ref={setFile}
+                    onChange={(e) => setSelectedFile(e.target.files[0].name)}
                     className="visible"
                 />
             </div>
             <button
-                onClick={handleSubmit}
+                // onClick={e => fileInput.current && fileInput.current.click()}
                 className="bg-yellow-500 w-full text-black font-bold rounded-md py-2 px-4 hover:bg-yellow-800 transition-colors duration-300"
             >
                 Submit
             </button>
-        </div>
+        </form>
     );
 }
 

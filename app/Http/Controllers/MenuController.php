@@ -20,10 +20,10 @@ class MenuController extends Controller
     public function showFoodsBelongToCategory(Category $category)
     {
         $subCategories = $category->subCategories()->with('foods')->latest()->get();
-
-        return response()->json([
-            'subCategory' => $subCategories
-        ]);
+        // send back in the sub category of laravel the food array of the sub category
+        return response()->json(
+            $subCategories
+        );
     }
 
 

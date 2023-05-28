@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const FoodCard = ({ imageSrc, name, price, id }) => {
+
+
+
+    
     return (
         <Link
             // add id to the path
