@@ -8,15 +8,16 @@ import { CheckoutCart } from "../components/CheckoutCart";
 export const Checkout = () => {
     const navigate = useNavigate();
     const cart = useSelector((state) => state.cart.cartItems);
-    console.log("cart ndajkfnkjsdnjk", cart);
     const handleBack = () => {
         navigate(-1);
     };
-    // console.log("cart ndajkfnkjsdnjk", cart);
-    const totalPrice = cart.reduce(
-        (acc, item) => acc + item * item.price,
-        0
-    );
+    console.log("this is total cart ", cart);
+    // const totalPrice = cart.reduce((acc, item) => acc + item * item.price, 0);
+    const totalPrice = cart.reduce((accumulator, foodItem) => {
+        const { foodQuantity, price } = foodItem;
+        return accumulator + foodQuantity * price;
+    }, 0);
+    console.log("this is total cart ", totalPrice);
 
     return (
         <div>
@@ -71,8 +72,9 @@ export const Checkout = () => {
                             <CheckoutCart
                                 key={item.id}
                                 id={item.id}
-                                quantity={item.quantity}
+                                quantity={item.foodQuantity}
                                 price={item.price}
+                                image={item.image_url}
                                 feedbacks={item.feedbacks_avg_rating}
                                 name={item.name}
                             />

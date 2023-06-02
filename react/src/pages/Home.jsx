@@ -13,6 +13,7 @@ export default function Home() {
         dispatch(setCategory(date));
         return date;
     };
+    console.log("this is category ", category);
     useEffect(() => {
         getHandler();
     }, [dispatch]);

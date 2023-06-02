@@ -19,10 +19,8 @@ const FoodsPage = () => {
         let data = await getFoodList();
         dispatch(setFood(data));
         if (param.id !== undefined) {
-            console.log("param.id", param.id);
             let foodsSub = await getSingleCategory(param.id);
             setSubCategory(foodsSub);
-            console.log("foodsSub", foodsSub);
         }
         return data;
     };
@@ -54,7 +52,7 @@ const FoodsPage = () => {
                 )}
             </div>
             <div className=" grid grid-cols-2 sm:grid-cols-3 space-x-4">
-                {foods && foods.length !== 0 ? (
+                {foods && foods.length !== [] ? (
                     foods.map((food) => {
                         return (
                             <FoodCard
@@ -63,9 +61,7 @@ const FoodsPage = () => {
                                 deskNum={param.id}
                                 name={food.name}
                                 price={food.price}
-                                imageSrc={
-                                    "https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg"
-                                }
+                                imageSrc={food.image_url}
                             />
                         );
                     })

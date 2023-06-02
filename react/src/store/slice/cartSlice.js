@@ -41,18 +41,17 @@ const cartSlice = createSlice({
 
     //write a function to remove from cart that decrement if already exists or remove item
     decreaseQuantity: (state, action) => {
-      //removeFromCart
       const item = state.cartItems.find(
         (item) => item.id === action.payload.id
       );
-      if (item.quantity > 1) {
-        item.quantity--;
-        console.log("this is item", item);
+      if (item.foodQuantity > 1) {
+        item.foodQuantity--;
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
         const update = JSON.parse(localStorage.getItem("cartItems")).find(
           (data) => data.id === action.payload.id
         );
         setCart(update.deskNumber, update.id, update.foodQuantity);
+
         // setCart(data.deskNumber, data.id, data.foodQuantity);
       } else {
         state.cartItems = state.cartItems.filter(
@@ -71,7 +70,7 @@ const cartSlice = createSlice({
       const item = state.cartItems.find(
         (item) => item.id === action.payload.id
       );
-      item.quantity++;
+      item.foodQuantity++;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       const update = JSON.parse(localStorage.getItem("cartItems")).find(
         (data) => data.id === action.payload.id
@@ -83,17 +82,19 @@ const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
-      localStorage.removeItem("cartItems", JSON.stringify(state.cartItems));
-      const update = JSON.parse(localStorage.getItem("cartItems")).find(
-        (data) => data.id === action.payload.id
-      );
-      setCart(update.deskNumber, update.id, update.foodQuantity);
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+
+      // setCart(
+      //   action.payload.deskNumber,
+      //   action.id,
+      //   action.payload.foodQuantity
+      // );
     },
 
     //write a function to clear cart
     clearCart: (state) => {
       state.cartItems = [];
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      localStorage.removeItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });

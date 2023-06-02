@@ -6,7 +6,14 @@ import {
     increaseQuantity,
 } from "../store/slice/cartSlice";
 
-export const CheckoutCart = ({ name, price, feedbacks, quantity, item }) => {
+export const CheckoutCart = ({
+    name,
+    price,
+    feedbacks,
+    quantity,
+    item,
+    image,
+}) => {
     function capitalizeFirstLetter(word) {
         return word.charAt(0).toUpperCase() + word.slice(1);
     }
@@ -21,8 +28,8 @@ export const CheckoutCart = ({ name, price, feedbacks, quantity, item }) => {
                     <img
                         className="w-fit h-fit border rounded "
                         // height="100"
-                        src="https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg"
-                        alt=""
+                        src={image}
+                        alt={name}
                     />
                 </div>
                 <div className="flex  first-letter: flex-col  items-center ml-2 w-1/3 justify-center ">

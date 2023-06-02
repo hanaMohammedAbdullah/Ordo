@@ -29,8 +29,8 @@ export const getFoodList = async () => {
       headers: { Authorization: `Bearer ${token}` },
       withCredentials: false,
     });
-    // console.log("this is response in foods ", response.data);
-    return response.data;
+    // console.log("this is response in foods in axios ", response.data.data);
+    return response.data.data;
   } catch (error) {
     return error.message;
   }
@@ -117,7 +117,7 @@ export const getSingleCategory = async (id) => {
     const response = await axios.get(`${apiUrl}/menu/categories/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("this is response insub category ", response.data[0].foods);
+    // console.log("this is response insub category ", response.data[0].foods);
     return response.data[0].foods;
   } catch (error) {
     console.log(error.message);
@@ -134,7 +134,7 @@ export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("this is response in carts  id food ", response.data);
+    // console.log("this is response in carts  id food ", response.data);
     return response.data;
   } catch (error) {
     return error.message;
@@ -142,7 +142,7 @@ export const setSingleCart = async (id, { deskNumber, foodId, quantity }) => {
 };
 // creating and end ponit with the carts/:id as apost o store the carts
 export const setCart = async (deskNumber, foodId, quantity) => {
-  console.log("this is response in carts  id food ", deskNumber, foodId);
+  // console.log("this is response in carts  id food ", deskNumber, foodId);
   try {
     const response = await axios.post(
       `${apiUrl}/carts/${foodId}`,
@@ -167,7 +167,7 @@ export const getCarts = async (deskNumber) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("this is response in get carts  carts ", response.data);
+    // console.log("this is response in get carts  carts ", response.data);
     return response.data;
   } catch (error) {
     return error.message;

@@ -15,6 +15,7 @@ export const foodsSlice = createSlice({
     //creating a slicer to retrieve one food from the list of foods
     setFood: (state, payload) => {
       state.allFoods = payload.payload;
+      // console.log("payload", payload.payload);
     },
     setSingleFood: (state, payload) => {
       state.singleFood = payload.payload;

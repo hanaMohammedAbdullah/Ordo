@@ -14,11 +14,13 @@ const FoodDetail = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const food = useSelector((state) => state.foods.singleFood); //get all foods from the store
-
-
-    
-    // console.log("dood  ", food);
-
+    // const capitalizeFirstLetter = ([firstLetter, ...rest]) => {
+    //     return `${firstLetter.toUpperCase()}${rest.join('')}`;
+    //   };
+    // // console.log("dood  ", food);
+    // const capitalized = (food.name) => {
+    //     return name.charAt(0).toUpperCase() + name.slice(1);
+    // };
     const getHandler = async () => {
         let data = await getSingleFood(id);
         // console.log("this data so be ", data);
@@ -43,8 +45,8 @@ const FoodDetail = () => {
                     <div className="flex-col m-2">
                         <img
                             className=" rounded w-11/12 object-contain"
-                            src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600"
-                            alt="foodpic"
+                            src={food.image_url}
+                            alt={food.name}
                         />
                         <h2 className="text-2xl font-bold	">{food.name}</h2>
                         <div className="flex w-1/3 justify-evenly 	 ">
@@ -79,7 +81,7 @@ const FoodDetail = () => {
                                 FeedBack
                             </button>
                         </div>
-                        {food &&
+                        {food.feedbacks !== undefined &&
                             food.feedbacks.map((food) => {
                                 return (
                                     <FeedBack

@@ -9,13 +9,11 @@ import { OrderedCart } from "../components/OrderedCart";
 export const OrderPage = () => {
     const navigate = useNavigate();
     const cart = useSelector((state) => state.cart.cartItems);
-     console.log("cart ndajkfnkjsdnjk", cart);
     const handleBack = () => {
         navigate(-1);
     };
-    // console.log("cart ndajkfnkjsdnjk", cart);
     const totalPrice = cart.reduce(
-        (acc, item) => acc + item.quantity * item.price,
+        (acc, item) => acc + item.foodQuantity * item.price,
         0
     );
 
@@ -72,7 +70,7 @@ export const OrderPage = () => {
                             <OrderedCart
                                 key={item.id}
                                 id={item.id}
-                                quantity={item.quantity}
+                                quantity={item.foodQuantity}
                                 price={item.price}
                                 feedbacks={item.feedbacks_avg_rating}
                                 name={item.name}

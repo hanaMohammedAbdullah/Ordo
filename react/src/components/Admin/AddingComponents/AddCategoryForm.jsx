@@ -44,7 +44,7 @@ function AddCategoryForm() {
                         ref={nameref}
                     />
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label className="block font-medium mb-2">
                         Upload Image
                     </label>
@@ -70,7 +70,7 @@ function AddCategoryForm() {
                         className="hidden"
                         // onChange={(e) => setFile(e.target.files[0])}
                     />
-                </div>
+                </div> */}
                 <button
                     type="submit"
                     className="bg-yellow-500 w-full text-black font-bold rounded-md py-2 px-4 hover:bg-yellow-300 transition-colors duration-300"
