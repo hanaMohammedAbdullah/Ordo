@@ -57,7 +57,6 @@ class FoodController extends Controller
         ]);
 
         if ($request->image) {
-
             $food->addMediaFromRequest('image')->usingName($request->name . '-' . now())->toMediaCollection('foodImage');
         }
 

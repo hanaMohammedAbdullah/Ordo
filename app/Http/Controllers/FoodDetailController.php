@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Admin\FoodCollection;
+use App\Http\Resources\OrderCollection;
 use App\Models\Food;
 
 class FoodDetailController extends Controller
@@ -9,7 +11,7 @@ class FoodDetailController extends Controller
 
     public function index()
     {
-        return Food::all();
+        return FoodCollection::collection(Food::all());
     }
     /**
      * Display the specified resource.
@@ -27,7 +29,7 @@ class FoodDetailController extends Controller
             ->get();
 
         return response()->json(
-            $foodDetail[0]
+            FoodCollection::make($foodDetail[0])
         );
     }
 }
