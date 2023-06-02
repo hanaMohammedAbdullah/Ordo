@@ -2,9 +2,13 @@ import React from "react";
 import Layout from "../Layouts/Layout";
 import { Link, useParams } from "react-router-dom";
 import { qrlogin } from "../service/apiServer";
+import { useDispatch } from "react-redux";
+import { setDesk } from "../store/slice/deskSlice";
 
 export const Welcome = () => {
     let { desk } = useParams();
+    const dispatch = useDispatch();
+    dispatch(setDesk(desk));
     qrlogin(desk);
     return (
         <div>

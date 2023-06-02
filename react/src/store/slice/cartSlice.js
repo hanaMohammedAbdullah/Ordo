@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { setCart } from "../../service/apiServer";
 
 const initialState = {
-  cartItems: [] || JSON.parse(localStorage.getItem("cartItems")),
+  cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
 };
 
 const cartSlice = createSlice({
@@ -14,11 +15,27 @@ const cartSlice = createSlice({
         (item) => item.id === payload.payload.id
       );
       if (itemExists !== undefined) {
-        itemExists.quantity++;
+        itemExists.foodQuantity++;
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+        const update = JSON.parse(localStorage.getItem("cartItems")).find(
+          (data) => data.id === payload.payload.id
+        );
+        setCart(update.deskNumber, update.id, update.foodQuantity);
+        // let data = itemExists;
+
+        // console.log("thi is cart data in cart ", data);
+
+        // const res=  setCart(data.desk_id, data.id, data.foodQuantity);
+        // console.log("this is res in cart", res);
       } else {
-        state.cartItems.push(payload.payload);
+        const data = { ...payload.payload, foodQuantity: 1 };
+        console.log("this is data", data);
+        state.cartItems.push(data);
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+        setCart(data.deskNumber, data.id, data.foodQuantity);
+        // let cart = JSON.stringify(state.cartItems);
+        // console.log("thi is cart data in cart ", state.cartItems);
+        // setCart(cart.desk_id, cart.id, cart.foodQuantity);
       }
     },
 
@@ -30,10 +47,22 @@ const cartSlice = createSlice({
       );
       if (item.quantity > 1) {
         item.quantity--;
+        console.log("this is item", item);
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+        const update = JSON.parse(localStorage.getItem("cartItems")).find(
+          (data) => data.id === action.payload.id
+        );
+        setCart(update.deskNumber, update.id, update.foodQuantity);
+        // setCart(data.deskNumber, data.id, data.foodQuantity);
       } else {
         state.cartItems = state.cartItems.filter(
           (item) => item.id !== action.payload.id
         );
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+        const update = JSON.parse(localStorage.getItem("cartItems")).find(
+          (data) => data.id === action.payload.id
+        );
+        setCart(update.deskNumber, update.id, update.foodQuantity);
       }
     },
 
@@ -43,17 +72,28 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
       item.quantity++;
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      const update = JSON.parse(localStorage.getItem("cartItems")).find(
+        (data) => data.id === action.payload.id
+      );
+      setCart(update.deskNumber, update.id, update.foodQuantity);
     },
 
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
+      localStorage.removeItem("cartItems", JSON.stringify(state.cartItems));
+      const update = JSON.parse(localStorage.getItem("cartItems")).find(
+        (data) => data.id === action.payload.id
+      );
+      setCart(update.deskNumber, update.id, update.foodQuantity);
     },
 
     //write a function to clear cart
     clearCart: (state) => {
       state.cartItems = [];
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });

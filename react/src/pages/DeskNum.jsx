@@ -8,7 +8,7 @@ export const DeskNum = () => {
     // get the name from the desk inputh thenn navogate using react nagivation
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate(`/desk${refc.current.value}`);
+        navigate(`/${refc.current.value}`);
     };
 
     return (

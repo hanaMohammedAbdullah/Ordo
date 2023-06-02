@@ -1,25 +1,45 @@
 import { useEffect, useRef, useState } from "react";
 import { addToCart } from "../store/slice/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "../service/apiServer";
+import { Await } from "react-router-dom";
 
 const FoodNote = ({ food, setShowModal }) => {
     const dispatch = useDispatch();
     // call
     // createing a state managment to give the value of note to the data before adding to the cart
     //
-    const [note, setNote] = useState("");
+    const deskNumber = useSelector((state) => state.desk.deskNumber);
 
-    let data = { ...food, quantity: 1, desk_id: 1, cart_id: 1 };
     // console.log("food oder", food);
     // useEffect(() => {}, []);
     const textAreaRef = useRef(null);
 
-    const addToCartHandler = (e) => {
-        data = { ...data, description: textAreaRef.current.value };
-        console.log("data in note", data);
+    const addToCartHandler = async (e) => {
+        const data = {
+            ...food,
+            description: textAreaRef.current.value,
+            deskNumber: deskNumber,
+        };
+        // console.log("data in note", data);
+        // const data = setCart(data.desk_id, data.id, data.foodQuantity);
         dispatch(addToCart(data));
+
+        // await setCart(data.desk_id, data.id, data.foodQuantity);
+        // onChangeHandler();
         setShowModal(false);
     };
+    // console.log("food", food);
+    const cart = useSelector((state) => state.cart.cartItems);
+    console.log("cart", cart);
+    // useEffect(async () => {
+    //     // await setCart(data.desk_id, data.id, data.foodQuantity);
+    //     console.log("cart", cart);
+    // }, [dispatch]);
+
+    // const cart = useSelector((state) => state.cart.cartItems);
+    // const onChangeHandler =async () => {
+    // };
 
     return (
         <>

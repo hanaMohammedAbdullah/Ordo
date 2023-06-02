@@ -5,6 +5,7 @@ const FoodCard = ({ imageSrc, name, price, id, deskNum }) => {
     const posthandler = () => {
         console.log("post handler");
     };
+    
     return (
         <Link
             // add id to the path

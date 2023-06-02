@@ -8,13 +8,13 @@ import { CheckoutCart } from "../components/CheckoutCart";
 export const Checkout = () => {
     const navigate = useNavigate();
     const cart = useSelector((state) => state.cart.cartItems);
-
+    console.log("cart ndajkfnkjsdnjk", cart);
     const handleBack = () => {
         navigate(-1);
     };
     // console.log("cart ndajkfnkjsdnjk", cart);
     const totalPrice = cart.reduce(
-        (acc, item) => acc + item.quantity * item.price,
+        (acc, item) => acc + item * item.price,
         0
     );
 

@@ -13,14 +13,17 @@ const FoodsPage = () => {
     const dispatch = useDispatch();
     const foods = useSelector((state) => state.foods.allFoods);
     const param = useParams();
-    console.log("thois is params", param.id);
     //get all foods from the store
     // console.log("first ", foods);
     const getHandler = async () => {
         let data = await getFoodList();
         dispatch(setFood(data));
-        let foodsSub = await getSingleCategory(param.id);
-        setSubCategory(foodsSub);
+        if (param.id !== undefined) {
+            console.log("param.id", param.id);
+            let foodsSub = await getSingleCategory(param.id);
+            setSubCategory(foodsSub);
+            console.log("foodsSub", foodsSub);
+        }
         return data;
     };
     // let data;
@@ -33,7 +36,7 @@ const FoodsPage = () => {
     return (
         <Layout>
             <div className="flex justify-between items-center">
-                {subCategory && subCategory === [] ? (
+                {subCategory !== [] && subCategory.length !== [] ? (
                     subCategory.map((sub) => {
                         return (
                             <div

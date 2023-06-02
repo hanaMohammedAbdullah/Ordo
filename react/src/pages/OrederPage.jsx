@@ -9,7 +9,7 @@ import { OrderedCart } from "../components/OrderedCart";
 export const OrderPage = () => {
     const navigate = useNavigate();
     const cart = useSelector((state) => state.cart.cartItems);
-
+     console.log("cart ndajkfnkjsdnjk", cart);
     const handleBack = () => {
         navigate(-1);
     };

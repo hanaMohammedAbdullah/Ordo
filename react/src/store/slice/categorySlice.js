@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  category: [],
+  category: [] || JSON.parse(localStorage.getItem("category")),
   singleCategory: {},
 };
 
@@ -13,10 +13,12 @@ export const categorySlice = createSlice({
     // set category
     setCategory: (state, action) => {
       state.category = action.payload;
+      localStorage.setItem("category", JSON.stringify(state.category));
     },
   },
   setSigngleCategory: (state, action) => {
     state.singleCategory = action.payload;
+    localStorage.setItem("category", JSON.stringify(state.category));
   },
 });
 
