@@ -1,19 +1,42 @@
 import React from "react";
 import Footer from "../components/Footer";
 import { FaArrowLeft, FaCartPlus } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { CheckoutCart } from "../components/CheckoutCart";
+import { getOrderCart, setOrderCart } from "../service/apiServer";
+import { addToOrder } from "../store/slice/orderSlice";
 
 export const Checkout = () => {
     const navigate = useNavigate();
-    const cart = useSelector((state) => state.checkout.checkoutItems);
-    console.log("at checkout page", cart);
+    const dispatch = useDispatch();
+    const checkout = useSelector((state) => state.checkout.checkoutItems);
+    const desknum = useSelector((state) => state.desk.deskNumber);
+    const desk = parseInt(desknum);
     const handleBack = () => {
         navigate(-1);
     };
+
+    const orderHandler = async () => {
+        checkout.map(
+            async (item) =>
+                await setOrderCart(
+                    item.food_id,
+                    item.desk_id,
+                    item.quantity,
+                    item?.note
+                )
+        );
+        const getOrders = await getOrderCart();
+        console.log("getOrders", getOrders);
+        const getOrder = getOrders;
+        dispatch(addToOrder(getOrder));
+        // console.log("at cart page repond of the post show cart ", getShowCart);
+        // getShowCart.map((item) => dispatch(addToCheckout(item)));
+        navigate("/order");
+    };
     // const totalPrice = cart.reduce((acc, item) => acc + item * item.price, 0);
-    const totalPrice = cart.reduce((accumulator, foodItem) => {
+    const totalPrice = checkout.reduce((accumulator, foodItem) => {
         const { quantity, price } = foodItem;
         return accumulator + quantity * price;
     }, 0);
@@ -46,11 +69,11 @@ export const Checkout = () => {
                                 >
                                     <FaCartPlus className="h-6 w-6" />
                                 </Link>
-                                {cart.length === 0 ? (
+                                {checkout.length === 0 ? (
                                     ""
                                 ) : (
                                     <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                                        {cart.length}
+                                        {checkout.length}
                                     </span>
                                 )}
                             </div>
@@ -60,14 +83,14 @@ export const Checkout = () => {
             </nav>
             <div className="w-full">
                 <div className="  border-2 rounded">
-                    {cart.length === 0 ? (
+                    {checkout.length === 0 ? (
                         <div className="	 text-center py-60">
                             <h1 className="text-gray-800  w-full text-2xl  font-bold     ">
                                 No Orders
                             </h1>
                         </div>
                     ) : (
-                        cart.map((item) => (
+                        checkout.map((item) => (
                             <CheckoutCart
                                 key={item.id}
                                 id={item.id}
@@ -94,12 +117,13 @@ export const Checkout = () => {
                         </div>
                     </div>
 
-                    <Link
-                        to={"/order"}
+                    <button
+                        // to={"/order"}
+                        onClick={orderHandler}
                         className="bg-yellow-500 w-full text-center text-white p-4  rounded "
                     >
                         Order
-                    </Link>
+                    </button>
                 </div>
             </div>
             <Footer />

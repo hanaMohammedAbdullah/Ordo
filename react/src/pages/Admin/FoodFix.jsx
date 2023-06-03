@@ -4,6 +4,16 @@ import { DashboardNavbar } from "../../components/Admin/DashboardNavbar";
 import FeedBack from "../../components/FeedBack";
 
 export const FoodFix = () => {
+    const food = useSelector((state) => state.foods.singleFood); //get all foods from the store
+
+    const getHandler = async () => {
+        let data = await getSingleFood(id);
+        // console.log("this data so be ", data);
+        dispatch(setSingleFood(data));
+
+        return data;
+    };
+
     let feedback = [
         {
             id: 1,

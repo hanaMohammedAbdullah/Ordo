@@ -3,19 +3,21 @@ import Footer from "../components/Footer";
 import { FaArrowLeft, FaCartPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { CheckoutCart } from "../components/CheckoutCart";
 import { OrderedCart } from "../components/OrderedCart";
 
 export const OrderPage = () => {
     const navigate = useNavigate();
-    const cart = useSelector((state) => state.cart.cartItems);
+    const order = useSelector((state) => state.order.orderItems);
     const handleBack = () => {
         navigate(-1);
     };
-    const totalPrice = cart.reduce(
-        (acc, item) => acc + item.foodQuantity * item.price,
-        0
-    );
+
+    console.log("order in order page", order);
+    const foods = order[0].foods;
+
+    //     <h2 className="text-lg font-semibold text-right	 mr-4 items-end">
+    //     Status : {item?.status}
+    // </h2>
 
     return (
         <div>
@@ -45,11 +47,11 @@ export const OrderPage = () => {
                                 >
                                     <FaCartPlus className="h-6 w-6" />
                                 </Link>
-                                {cart.length === 0 ? (
+                                {order.length === 0 ? (
                                     ""
                                 ) : (
                                     <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                                        {cart.length}
+                                        {order.length}
                                     </span>
                                 )}
                             </div>
@@ -59,22 +61,24 @@ export const OrderPage = () => {
             </nav>
             <div className="w-full  ">
                 <div className=" h-5/6 border-2 rounded">
-                    {cart && cart.length === 0 ? (
+                    {order && order.length === 0 ? (
                         <div className="	 text-center py-60">
                             <h1 className="text-gray-800  w-full text-2xl  font-bold     ">
                                 No Orders
                             </h1>
                         </div>
                     ) : (
-                        cart.map((item) => (
+                        foods.map((item) => (
                             <OrderedCart
                                 key={item.id}
                                 id={item.id}
+                                arg={item.arg}
+                                time={item.preparation_time}
                                 quantity={item.foodQuantity}
+                                status={order.status}
                                 price={item.price}
-                                feedbacks={item.feedbacks_avg_rating}
                                 name={item.name}
-                                item={item}
+                                item={order}
                             />
                         ))
                     )}

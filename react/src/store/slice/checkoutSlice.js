@@ -36,7 +36,10 @@ const checkoutSlice = createSlice({
         "this is cart checkout state.checkoutItems",
         state.checkoutItems
       );
-      console.log("this is cart checkout payload.payload", payload.payload);
+      // if (item.foodQuantity === state.checkoutItems.foodQuantity) {
+      //   item.foodQuantity = payload.payload.foodQuantity;
+      //   console.log("this is cart checkout payload.payload", payload.payload);
+      // }
       // } else {
       //   const data = { ...payload.payload, desk_id: payload.payload.desk_id };
       // state.checkoutItems = state.checkoutItems.filter(

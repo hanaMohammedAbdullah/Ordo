@@ -173,14 +173,11 @@ export const getCarts = async (deskNumber) => {
     return error.message;
   }
 };
-export const setOrderCart = async (
-  id,
-  { deskNumber, food_id, quantity, note }
-) => {
+export const setOrderCart = async (food_id, desk_id, quantity, note) => {
   try {
     const response = await axios.post(
       `${apiUrl}/orders`,
-      { deskNumber, food_id, quantity, note },
+      { food_id, desk_id, quantity, note },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -196,7 +193,8 @@ export const getOrderCart = async () => {
     const response = await axios.get(`${apiUrl}/orders`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return response.data;
+    console.log("this is response in get order cart  ", response.data.data[0]);
+    return response.data.data[0];
   } catch (error) {
     return error.message;
   }

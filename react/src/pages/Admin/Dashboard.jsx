@@ -1,24 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FoodCartDashboard from "../../components/Admin/FoodCartDashboard";
 import { DashNav } from "../../components/Admin/DashNav";
+import { setFood } from "../../store/slice/foodsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllFood } from "../../service/apiServer";
 
 export const Dashboard = () => {
-    let foods = [
-        {
-            id: 133,
-            name: "Pizza",
-            price: 10,
-            imageSrc:
-                "https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg",
-        },
-        {
-            id: 12,
-            name: "Pizza",
-            price: 10,
-            imageSrc:
-                "https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg",
-        },
-    ];
+    const dispatch = useDispatch();
+    const getHandler = async () => {
+        let foods = await getAllFood();
+        console.log("this is foods in dashboard ", foods);
+        dispatch(setFood(foods));
+    };
+    useEffect(() => {
+        getHandler();
+    }, [dispatch]);
+
+    const foods = useSelector((state) => state.foods.allFoods);
     return (
         <>
             <div className="flex">
@@ -49,18 +47,21 @@ export const Dashboard = () => {
                                 20k
                             </div>
                         </div> */}
-                        {foods &&
+                        {foods && foods.length !== [] ? (
                             foods.map((food) => (
                                 <FoodCartDashboard
                                     key={food.id}
                                     id={food.id}
                                     name={food.name}
                                     price={food.price}
-                                    imageSrc={
-                                        "https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg"
-                                    }
+                                    imageSrc={food.image_url}
                                 />
-                            ))}
+                            ))
+                        ) : (
+                            <div className=" text-ceneter text-yellow-400 font-semibold text-2xl flex    p-32 ">
+                                <p>loading....</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
