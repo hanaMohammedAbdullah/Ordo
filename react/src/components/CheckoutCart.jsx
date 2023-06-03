@@ -13,12 +13,14 @@ export const CheckoutCart = ({
     quantity,
     item,
     image,
+    media_id,
 }) => {
-    function capitalizeFirstLetter(word) {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    }
+    // function capitalizeFirstLetter(word) {
+    //     return word.charAt(0).toUpperCase() + word.slice(1);
+    // }
 
-    const capitalized = capitalizeFirstLetter(name);
+    // const capitalized = capitalizeFirstLetter(name);
+    const image_url = `http://localhost:8000/storage/${media_id}/` + image;
 
     const Total = price * quantity;
     return (
@@ -28,13 +30,13 @@ export const CheckoutCart = ({
                     <img
                         className="w-fit h-fit border rounded "
                         // height="100"
-                        src={image}
+                        src={image_url}
                         alt={name}
                     />
                 </div>
                 <div className="flex  first-letter: flex-col  items-center ml-2 w-1/3 justify-center ">
                     <h2 className="text-lg font-semibold	 text-center">
-                        {capitalized}
+                        {name}
                     </h2>
                     {feedbacks === null ? (
                         ""

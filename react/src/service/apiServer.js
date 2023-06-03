@@ -117,8 +117,8 @@ export const getSingleCategory = async (id) => {
     const response = await axios.get(`${apiUrl}/menu/categories/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    // console.log("this is response insub category ", response.data[0].foods);
-    return response.data[0].foods;
+    console.log("this is response in  sub category ", response.data);
+    return response.data;
   } catch (error) {
     console.log(error.message);
     return error.message;
@@ -167,8 +167,8 @@ export const getCarts = async (deskNumber) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    // console.log("this is response in get carts  carts ", response.data);
-    return response.data;
+    console.log("this is response in get carts  carts ", response.data.cart);
+    return response.data.cart;
   } catch (error) {
     return error.message;
   }

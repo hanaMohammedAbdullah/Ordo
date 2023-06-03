@@ -4,13 +4,22 @@ import Footer from "../components/Footer";
 import { FaArrowLeft, FaCartPlus } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { CartItem } from "../components/CartItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getCarts } from "../service/apiServer";
+import { addToCheckout } from "../store/slice/checkoutSlice";
 
 export const Cart = () => {
     const navigate = useNavigate();
     const cart = useSelector((state) => state.cart.cartItems);
+    const dispatch = useDispatch();
     const handleBack = () => {
         navigate(-1);
+    };
+    const CheckoutHandler = async () => {
+        const getShowCart = await getCarts(cart[0].deskNumber);
+        console.log("at cart page repond of the post show cart ", getShowCart);
+        getShowCart.map((item) => dispatch(addToCheckout(item)));
+        navigate("/checkout");
     };
 
     return (
@@ -79,12 +88,12 @@ export const Cart = () => {
                 {/* total section */}
 
                 <div className="flex  flex-col text-center w-11/12 p-2 items-center mb-2">
-                    <Link
-                        to={"/checkout"}
+                    <button
+                        onClick={CheckoutHandler}
                         className="bg-yellow-500 w-full  text-white p-4  rounded "
                     >
                         Checkout
-                    </Link>
+                    </button>
                 </div>
             </div>
             <Footer />
