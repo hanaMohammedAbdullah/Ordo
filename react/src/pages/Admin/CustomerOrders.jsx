@@ -1,25 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DashNav } from "../../components/Admin/DashNav";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { getAllOrder } from "../../service/apiServer";
+import { useDispatch, useSelector } from "react-redux";
+import { addToOrder } from "../../store/slice/admin/orderAdminSlice";
 export default function CustomerOrders() {
-    const orders = [
-        {
-            guestName: "John Doe",
-            roomNumber: 101,
-            orderQuantity: 3,
-        },
-        {
-            guestName: "Jane Smith",
-            roomNumber: 202,
-            orderQuantity: 1,
-        },
-        {
-            guestName: "Bob Johnson",
-            roomNumber: 303,
-            orderQuantity: 2,
-        },
-    ];
+    const dispatch = useDispatch();
+    const getOrderHundelr = async () => {
+        let Orders = await getAllOrder();
+        // console.log("this is orders in customer orders ", Orders[0].data);
+        dispatch(addToOrder(Orders));
+    };
+    useEffect(() => {
+        getOrderHundelr();
+    }, []);
+
+    const orders = useSelector((state) => state.adminOrder.OrderItems);
+    console.log("this is orders in customer orders ", orders);
     return (
         <div className="flex">
             <DashNav />
@@ -28,8 +26,7 @@ export default function CustomerOrders() {
                 <table className="table-auto w-full ">
                     <thead className="bg-slate-300">
                         <tr>
-                            <th className="px-4 py-2">Guest Name</th>
-                            <th className="px-4 py-2">The Room </th>
+                            <th className="px-4 py-2">Desk Number</th>
                             <th className="px-4 py-2">Order Quantity</th>
                             <th className="px-4 py-2">More</th>
                         </tr>
@@ -38,16 +35,17 @@ export default function CustomerOrders() {
                         {orders.map((order) => (
                             <tr key={order.roomNumber}>
                                 <td className="border px-4 py-2 text-center">
-                                    {order.guestName}
+                                    {order.desk_number}
+                                </td>
+
+                                <td className="border px-4 py-2 text-center">
+                                    {order.foodQuantity}
                                 </td>
                                 <td className="border px-4 py-2 text-center">
-                                    {order.roomNumber}
-                                </td>
-                                <td className="border px-4 py-2 text-center">
-                                    {order.orderQuantity}
-                                </td>
-                                <td className="border px-4 py-2 text-center">
-                                    <Link to="/more-details" className="">
+                                    <Link
+                                        to={`/more-details/${order.id}`}
+                                        className=""
+                                    >
                                         <button className=" text-black font-bold p-2  rounded-full border-2 border-black ">
                                             <BsThreeDotsVertical />{" "}
                                         </button>

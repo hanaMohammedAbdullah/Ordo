@@ -42,7 +42,7 @@ function App() {
           <Route path="/food/:id" element={<FoodFix />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/orders" element={<CustomerOrders />} />
-          <Route path="/more-details" element={<MoreDetails />} />
+          <Route path="/more-details/:id" element={<MoreDetails />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/adding" element={<Adding />} />
           <Route path="/adding/addNewCategory" element={<AddNewCategory />} />

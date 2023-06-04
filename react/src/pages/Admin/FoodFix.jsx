@@ -2,17 +2,16 @@ import React from "react";
 import { FaPencilAlt, FaStar } from "react-icons/fa";
 import { DashboardNavbar } from "../../components/Admin/DashboardNavbar";
 import FeedBack from "../../components/FeedBack";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const FoodFix = () => {
-    const food = useSelector((state) => state.foods.singleFood); //get all foods from the store
-
-    const getHandler = async () => {
-        let data = await getSingleFood(id);
-        // console.log("this data so be ", data);
-        dispatch(setSingleFood(data));
-
-        return data;
-    };
+    const foods = useSelector((state) => state.foods.allFoods);
+    console.log("this food s", foods);
+    const param = useParams();
+    console.log("params", param.id);
+    const food = foods.filter((food) => food.id === parseInt(param.id))[0];
+    console.log("food", food);
 
     let feedback = [
         {
@@ -49,35 +48,33 @@ export const FoodFix = () => {
                     <img
                         className="w-fit h-fit border rounded "
                         // height="100"
-                        src="https://img.freepik.com/free-photo/top-view-table-full-delicious-food-composition_23-2149141353.jpg"
-                        alt=""
+                        src={food.image_url}
+                        alt={food.name}
                     />
                 </div>
                 <div className="flex flex-col w-2/3 h-fit  m-6   ">
                     <div className="flex justify-between">
                         <div className="flex flex-col">
                             <h2 className="text-xl font-semibold mb-5">
-                                Food name
+                                {food.name}
                             </h2>{" "}
                             <div className="flex  ">
-                                <FaStar className="text-orange-500 mr-2 text-lg" />
-                                <span className="flex text-lg">4</span>
+                                <span className="flex text-lg">
+                                    {`Timer ${food.time} mint `}
+                                </span>
                             </div>
                         </div>
                         <div className="flex justify-evenly">
-                            <p className="text-2xl font-semibold mr-5">$120</p>
+                            <p className="text-2xl font-semibold mr-5">
+                                {`$ ${food.price} `}
+                            </p>
 
                             <FaPencilAlt className="text-yellow-500 text-2xl" />
                         </div>
                     </div>
                     <hr className="mt-5 bg-gray-800  border-spacing-2.5 " />
-                    <p>Description</p>
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Dolorem porro nisi earum architecto iure hic quis
-                        ut labore incidunt unde, est delectus omnis culpa facere
-                        modi fugit veritatis odio ducimus?
-                    </p>
+                    <p className="text-2xl font-semibold">Description</p>
+                    <p>{food.description}</p>
                 </div>
             </div>
 

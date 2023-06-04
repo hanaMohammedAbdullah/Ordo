@@ -7,6 +7,7 @@ import categorySlice from "./slice/categorySlice";
 import deskSlice from "./slice/deskSlice";
 import orderSlice from "./slice/orderSlice";
 import checkoutSlice from "./slice/checkoutSlice";
+import orderAdminSlice from "./slice/admin/orderAdminSlice";
 export const store = configureStore({
   reducer: {
     foods: foodsReducer,
@@ -16,6 +17,7 @@ export const store = configureStore({
     desk: deskSlice,
     order: orderSlice,
     checkout: checkoutSlice,
+    adminOrder: orderAdminSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
