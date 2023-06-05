@@ -23,8 +23,8 @@ const FoodNote = ({ food, setShowModal }) => {
         // console.log("data in note", data);
         // const data = setCart(data.desk_id, data.id, data.foodQuantity);
         dispatch(addToCart(data));
-
-        await setCart(data.desk_id, data.id, data.foodQuantity);
+        // console.log("data in note", data);
+        // await setCart(data.desk_id, data.id, data.foodQuantity);
         // onChangeHandler();
         setShowModal(false);
     };
