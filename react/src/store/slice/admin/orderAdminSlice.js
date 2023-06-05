@@ -2,12 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   OrderItems: JSON.parse(localStorage.getItem("OrderAdminItems")) || [],
+  OrderFoodItems: JSON.parse(localStorage.getItem("OrderFoodItems")) || {},
 };
 
 const adminOrderSlice = createSlice({
   name: "Order",
   initialState,
   reducers: {
+    addFoodOrders: (state, payload) => {
+      state.OrderFoodItems = payload.payload;
+      localStorage.setItem(
+        "OrderFoodItems",
+        JSON.stringify(state.OrderFoodItems)
+      );
+    },
     addToOrder: (state, payload) => {
       const itemExists = state.OrderItems.find(
         (item) => item.id === payload.payload.id
@@ -22,9 +30,9 @@ const adminOrderSlice = createSlice({
           (data) => data.id === payload.payload.id
         );
       } else {
-        const data = { ...payload.payload, foodQuantity: 1 };
-        console.log("this is data", data);
-        state.OrderItems.push(data);
+        // const data = { ...payload.payload, foodQuantity: 1 };
+        // console.log("this is data", data);
+        state.OrderItems.push(payload.payload);
         localStorage.setItem(
           "OrderAdminItems",
           JSON.stringify(state.OrderItems)
@@ -90,6 +98,7 @@ export const {
   removeFromOrder,
   clearOrder,
   increaseQuantity,
+  addFoodOrders,
   decreaseQuantity,
 } = adminOrderSlice.actions;
 export default adminOrderSlice.reducer;

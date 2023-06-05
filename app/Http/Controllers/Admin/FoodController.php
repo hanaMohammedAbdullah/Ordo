@@ -21,6 +21,11 @@ class FoodController extends Controller
         return  FoodCollection::collection($foods);
     }
 
+    public function show(Food $food)
+    {
+        return FoodCollection::make($food);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

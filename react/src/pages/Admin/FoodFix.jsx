@@ -1,44 +1,61 @@
-import React from "react";
-import { FaPencilAlt, FaStar } from "react-icons/fa";
+import React, { useEffect } from "react";
+import { FaPencilAlt, FaStar, FaTrash } from "react-icons/fa";
 import { DashboardNavbar } from "../../components/Admin/DashboardNavbar";
 import FeedBack from "../../components/FeedBack";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteSignleFood, getSignleFood } from "../../service/apiServer";
+import { addFoodOrders } from "../../store/slice/admin/orderAdminSlice";
 
 export const FoodFix = () => {
-    const foods = useSelector((state) => state.foods.allFoods);
-    console.log("this food s", foods);
+    const food = useSelector((state) => state.adminOrder.OrderFoodItems);
+    // adminOrder: orderAdminSlice,
+    console.log("thisis what retrive from the get ", food);
     const param = useParams();
-    console.log("params", param.id);
-    const food = foods.filter((food) => food.id === parseInt(param.id))[0];
-    console.log("food", food);
+    console.log(param.id);
+    const dispatch = useDispatch();
+    // const food = foods.filter((food) => food.id === parseInt(param.id))[0];
+    const handler = async () => {
+        const getfood = await getSignleFood(param.id);
+        // console.log("this is get food in admin", getfood);
+        dispatch(addFoodOrders(getfood));
+        return getfood;
+    };
+    const navigate = useNavigate();
 
-    let feedback = [
-        {
-            id: 1,
-            name: "Ahmed",
-            comment: ` Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
-            accusamus dolorum sit assumenda ea, dignissimos explicabo est
-            adipisci ut modi, accusantium perspiciatis! Illum voluptatibus
-            iusto facere distinctio. Aut, illo laborum.`,
-            rate: 4,
-        },
-        {
-            id: 2,
-            name: "Ahmed",
-            comment: "Very good",
-            rate: 4,
-        },
-        {
-            id: 3,
-            name: "Ahmed",
-            comment: ` Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
-            accusamus dolorum sit assumenda ea, dignissimos explicabo est
-            adipisci ut modi, accusantium perspiciatis! Illum voluptatibus
-            iusto facere distinctio. Aut, illo laborum.`,
-            rate: 4,
-        },
-    ];
+    const deleteHundler = () => {
+        deleteSignleFood(food.id);
+        navigate(-1);
+    };
+    useEffect(() => {
+        handler();
+    }, []);
+    // let feedback = [
+    //     {
+    //         id: 1,
+    //         name: "Ahmed",
+    //         comment: ` Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
+    //         accusamus dolorum sit assumenda ea, dignissimos explicabo est
+    //         adipisci ut modi, accusantium perspiciatis! Illum voluptatibus
+    //         iusto facere distinctio. Aut, illo laborum.`,
+    //         rate: 4,
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Ahmed",
+    //         comment: "Very good",
+    //         rate: 4,
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Ahmed",
+    //         comment: ` Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
+    //         accusamus dolorum sit assumenda ea, dignissimos explicabo est
+    //         adipisci ut modi, accusantium perspiciatis! Illum voluptatibus
+    //         iusto facere distinctio. Aut, illo laborum.`,
+    //         rate: 4,
+    //     },
+    // ];
     return (
         <div>
             <DashboardNavbar />
@@ -65,11 +82,15 @@ export const FoodFix = () => {
                             </div>
                         </div>
                         <div className="flex justify-evenly">
-                            <p className="text-2xl font-semibold mr-5">
+                            <p className="text-2xl font-semibold mt-5 mr-5">
                                 {`$ ${food.price} `}
                             </p>
-
-                            <FaPencilAlt className="text-yellow-500 text-2xl" />
+                            <button onClick={deleteHundler}>
+                                <FaTrash className="text-red-500 text-2xl mx-4" />
+                            </button>
+                            <button>
+                                <FaPencilAlt className="text-yellow-500 text-2xl" />
+                            </button>
                         </div>
                     </div>
                     <hr className="mt-5 bg-gray-800  border-spacing-2.5 " />
@@ -82,9 +103,9 @@ export const FoodFix = () => {
                 className="flex flex-col m-5 text-2xl font-semibold
             "
             >
-                <p className="">FeedBacks</p>
+                {/* <p className="">FeedBacks</p> */}
                 <div className="flex flex-wrap justify-evenly m-2">
-                    {feedback &&
+                    {/* {feedback &&
                         feedback.map((feed) => (
                             <FeedBack
                                 id={feed.id}
@@ -93,7 +114,7 @@ export const FoodFix = () => {
                                 name={feed.name}
                                 comment={feed.comment}
                             />
-                        ))}
+                        ))} */}
                 </div>
             </div>
         </div>

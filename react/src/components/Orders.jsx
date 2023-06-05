@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { addToCart } from "../store/slice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../service/apiServer";
-import { Await } from "react-router-dom";
 
 const FoodNote = ({ food, setShowModal }) => {
     const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const FoodNote = ({ food, setShowModal }) => {
         // const data = setCart(data.desk_id, data.id, data.foodQuantity);
         dispatch(addToCart(data));
 
-        // await setCart(data.desk_id, data.id, data.foodQuantity);
+        await setCart(data.desk_id, data.id, data.foodQuantity);
         // onChangeHandler();
         setShowModal(false);
     };

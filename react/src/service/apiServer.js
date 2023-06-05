@@ -445,6 +445,41 @@ export const getAllFood = async () => {
     return error.message;
   }
 };
+export const getSignleFood = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}/admin/foods/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(
+      "this is response in get one food admin food ",
+      response.data.data
+    );
+
+    return response.data.data;
+  } catch (error) {
+    console.log(error.message);
+
+    return error.message;
+  }
+};
+
+export const deleteSignleFood = async (id) => {
+  try {
+    const response = await axios.delete(`${apiUrl}/admin/foods/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(
+      "this is response in get one food admin food ",
+      response.data.data
+    );
+
+    return response.data.data;
+  } catch (error) {
+    console.log(error.message);
+
+    return error.message;
+  }
+};
 export const setNewFood = async (
   name,
   price,

@@ -1,8 +1,13 @@
 import React from "react";
 import { DashNav } from "../../components/Admin/DashNav";
 import ProfileInfo from "../../components/Admin/ProfileInfo";
+import { useParams } from "react-router-dom";
 
 export default function MoreDetails() {
+    const param = useParams();
+    const handler = async () => {
+        // const orders = await getOrders(param.id);
+    };
     const orders = [
         {
             food: "Pizza",
@@ -46,6 +51,7 @@ export default function MoreDetails() {
                         <select className="block appearance-none w-full bg-slate-100  hover:border-gray-500 px-8 py-2  leading-tight focus:outline-none focus:shadow-outline">
                             <option value="pending">Pending</option>
                             <option value="approved">Approved</option>
+                            <option value="approved">Rejected</option>
                         </select>
                     </div>
                 </div>

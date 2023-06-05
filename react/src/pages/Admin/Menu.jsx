@@ -5,7 +5,9 @@ import {
     getAllCategory,
     getAllFood,
     getAllSubCategory,
+    setDeleteCategory,
 } from "../../service/apiServer";
+import { FaTrash } from "react-icons/fa";
 
 export default function Menu() {
     const [foods, setFood] = useState([]);
@@ -26,7 +28,10 @@ export default function Menu() {
     };
     useEffect(() => {
         getHandler();
-    }, [dispatch]);
+    }, []);
+    const deleteHundler = (id) => {
+        setDeleteCategory(id);
+    };
     // careting a
     return (
         <>
@@ -62,11 +67,14 @@ export default function Menu() {
                                         .map((item) => (
                                             <div
                                                 key={item.id}
-                                                className="flex flex-col"
+                                                className="flex justify-between m-3"
                                             >
                                                 <div className="text-sm font-medium text-gray-500 truncate">
                                                     {item.name}
                                                 </div>
+                                                <button onClick={deleteHundler}>
+                                                    <FaTrash className="text-red-500 text-2xl mx-4" />
+                                                </button>
                                             </div>
                                         ))}
                             </div>
