@@ -9,13 +9,6 @@ const adminOrderSlice = createSlice({
   name: "Order",
   initialState,
   reducers: {
-    addFoodOrders: (state, payload) => {
-      state.OrderFoodItems = payload.payload;
-      localStorage.setItem(
-        "OrderFoodItems",
-        JSON.stringify(state.OrderFoodItems)
-      );
-    },
     addToOrder: (state, payload) => {
       const itemExists = state.OrderItems.find(
         (item) => item.id === payload.payload.id
@@ -39,6 +32,28 @@ const adminOrderSlice = createSlice({
         );
       }
     },
+    // add a n food order list that save the food order object that have a list food in it
+     addFoodOrders: (state, payload) => {
+      const itemExists = state.OrderFoodItems.find(
+        (item) => item.id === payload.payload.id
+      );
+      if (itemExists !== undefined) {
+        itemExists.foodQuantity++;
+        localStorage.setItem(
+          "OrderFoodItems",
+          JSON.stringify(state.OrderFoodItems)
+        );
+        const update = JSON.parse(localStorage.getItem("OrderFoodItems")).find(
+          (data) => data.id === payload.payload.id
+        );
+      } else {
+        // const data = { ...payload.payload, foodQuantity: 1 };
+        // console.log("this is data", data);
+        state.OrderFoodItems.push(payload.payload);
+        localStorage.setItem(
+          "OrderFoodItems",
+          JSON.stringify(state.OrderFoodItems)
+        );
 
     decreaseQuantity: (state, action) => {
       const item = state.OrderItems.find(

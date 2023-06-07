@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { DashNav } from "../../components/Admin/DashNav";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { DashNav } from "../../components/Admin/DashNav";
 import {
     getAllCategory,
-    getAllFood,
     getAllSubCategory,
     setDeleteCategory,
 } from "../../service/apiServer";
-import { FaTrash } from "react-icons/fa";
+import CategoryFix from "../../components/Category/CategoryFix";
+import SubCategoryFix from "../../components/Category/SubCategoryFix";
 
 export default function Menu() {
-    const [foods, setFood] = useState([]);
+    const [subcateUp, setsubcateUp] = useState(false);
+    const [cateUp, setcateUp] = useState(false);
     const [category, setCategory] = useState([]);
     const [subcategory, setSubCategory] = useState([]);
     const dispatch = useDispatch();
     const getHandler = async () => {
-        let data = await getAllFood();
         let dataCategory = await getAllCategory();
         let dataSubCategory = await getAllSubCategory();
 
@@ -23,40 +24,58 @@ export default function Menu() {
         // dispatch(setFood(data));
         setCategory(dataCategory);
         setSubCategory(dataSubCategory);
-        setFood(data);
-        return data;
     };
     useEffect(() => {
         getHandler();
     }, []);
-    const deleteHundler = (id) => {
-        setDeleteCategory(id);
+    const subcateupdateHandler = async (id) => {
+        setsubcateUp(true);
     };
-    // careting a
+    const cateupdateHandler = async (id) => {
+        setcateUp(true);
+        // await setcateUp(id);
+        // let dataCategory = await getAllCategory();
+        // let dataSubCategory = await getAllSubCategory();
+        // // console.log("this is data", data);
+        // // dispatch(setFood(data));
+        // setCategory(dataCategory);
+        // setSubCategory(dataSubCategory);
+    };
+
+    const deleteHundler = async (id) => {
+        await setDeleteCategory(id);
+        let dataCategory = await getAllCategory();
+        let dataSubCategory = await getAllSubCategory();
+        // console.log("this is data", data);
+        // dispatch(setFood(data));
+        setCategory(dataCategory);
+        setSubCategory(dataSubCategory);
+    };
     return (
         <>
             <div className="flex">
                 <DashNav />
                 <div className="container mx-auto mt-12">
-                    <div className="grid m-2 grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
+                    <div className=" flex flex-col  mx-5">
                         {/* { //category section} */}
-                        <div className="w-full m-2 px-4 py-5 bg-white rounded-lg shadow">
-                            <div className="m-1 text-3xl font-semibold text-gray-900 ">
-                                {/* mt-1 text-3xl font-semibold text-gray-900 */}
-                                {category && category.length === 0
-                                    ? "No Category Available"
-                                    : " categories       " +
-                                      category.filter(
-                                          (item, index, self) =>
-                                              index ===
-                                              self.findIndex(
-                                                  (t) => t.name === item.name
-                                              )
-                                      ).length}
-                            </div>
-                            <div className="text-sm font-medium text-gray-500 truncate">
-                                {category &&
-                                    category
+                        <h1 className="text-3xl font-semibold">Category</h1>
+                        {category && category.length !== 0 ? (
+                            <table className="table-auto w-full rounded my-5">
+                                <thead className="bg-yellow-200">
+                                    <tr>
+                                        <th className="px-4 py-2 text-2xl    ">
+                                            Name Category
+                                        </th>
+                                        <th className="px-4 py-2 text-2xl">
+                                            Update Category
+                                        </th>
+                                        <th className="px-4 py-2 text-2xl">
+                                            Delete Category
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white-50">
+                                    {category
                                         .filter(
                                             (item, index, self) =>
                                                 index ===
@@ -65,60 +84,60 @@ export default function Menu() {
                                                 )
                                         )
                                         .map((item) => (
-                                            <div
-                                                key={item.id}
-                                                className="flex justify-between m-3"
-                                            >
-                                                <div className="text-sm font-medium text-gray-500 truncate">
+                                            <tr key={item.id}>
+                                                <td className="border px-4 py-2 text-center">
                                                     {item.name}
-                                                </div>
-                                                <button onClick={deleteHundler}>
-                                                    <FaTrash className="text-red-500 text-2xl mx-4" />
-                                                </button>
-                                            </div>
+                                                </td>
+
+                                                <td className="border px-4 py-2 text-center">
+                                                    <button
+                                                        onClick={
+                                                            cateupdateHandler
+                                                        }
+                                                    >
+                                                        <FaPencilAlt className="text-yellow-500 text-2xl" />
+                                                    </button>
+                                                </td>
+                                                <td className="border px-4 py-2 text-center">
+                                                    <button
+                                                        onClick={deleteHundler}
+                                                    >
+                                                        <FaTrash className="text-red-500 text-2xl mx-4" />
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <div className="flex w-full  justify-center my-5  items-center">
+                                <h1 className="text-2xl  text-center font-bold">
+                                    No Category Available
+                                </h1>
                             </div>
-                        </div>
-                        {/* { //food section} */}
-                        <div className="w-full m-2 px-4 py-5 bg-white rounded-lg shadow">
-                            <div className="m-1 text-3xl font-semibold text-gray-900 ">
-                                {/* mt-1 text-3xl font-semibold text-gray-900 */}
-                                {foods && foods.length === 0
-                                    ? "No Food Available"
-                                    : "Total Food       " + foods.length}
-                            </div>
-                            <div className="text-sm font-medium text-gray-500 truncate">
-                                {foods &&
-                                    foods.map((food) => (
-                                        <div
-                                            key={food.id}
-                                            className="flex flex-col"
-                                        >
-                                            <div className="text-sm font-medium text-gray-500 truncate">
-                                                {food.name}
-                                            </div>
-                                        </div>
-                                    ))}
-                            </div>
-                        </div>
+                        )}
+
                         {/* { //subcategory section} */}
-                        <div className="w-full m-2 px-4 py-5 bg-white rounded-lg shadow">
-                            <div className="m-1 text-3xl font-semibold text-gray-900 ">
-                                {/* mt-1 text-3xl font-semibold text-gray-900 */}
-                                {subcategory && subcategory.length === 0
-                                    ? "No sub category  Available"
-                                    : "Subcategories       " +
-                                      subcategory.filter(
-                                          (item, index, self) =>
-                                              index ===
-                                              self.findIndex(
-                                                  (t) => t.name === item.name
-                                              )
-                                      ).length}
-                            </div>
-                            <div className="text-sm font-medium text-gray-500 truncate">
-                                {subcategory &&
-                                    subcategory
+                        <h1 className="text-3xl font-semibold my-2">
+                            SubCategory
+                        </h1>
+                        {subcategory && subcategory.length !== 0 ? (
+                            <table className="table-auto w-full rounded ">
+                                <thead className="bg-yellow-200">
+                                    <tr>
+                                        <th className="px-4 py-2 text-2xl    ">
+                                            Name subcategory
+                                        </th>
+                                        <th className="px-4 py-2 text-2xl">
+                                            Update subcategory
+                                        </th>
+                                        <th className="px-4 py-2 text-2xl">
+                                            Delete subcategory
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white-50">
+                                    {subcategory
                                         .filter(
                                             (item, index, self) =>
                                                 index ===
@@ -127,17 +146,44 @@ export default function Menu() {
                                                 )
                                         )
                                         .map((item) => (
-                                            <div
-                                                key={item.id}
-                                                className="flex flex-col"
-                                            >
-                                                <div className="text-sm font-medium text-gray-500 truncate">
+                                            <tr key={item.id}>
+                                                <td className="border px-4 py-2 text-center">
                                                     {item.name}
-                                                </div>
-                                            </div>
+                                                </td>
+
+                                                <td className="border px-4 py-2 text-center">
+                                                    <button
+                                                        onClick={
+                                                            subcateupdateHandler
+                                                        }
+                                                    >
+                                                        <FaPencilAlt className="text-yellow-500 text-2xl" />
+                                                    </button>
+                                                </td>
+                                                <td className="border px-4 py-2 text-center">
+                                                    <button
+                                                        onClick={deleteHundler}
+                                                    >
+                                                        <FaTrash className="text-red-500 text-2xl mx-4" />
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <div className="flex w-full  justify-center  items-center">
+                                <h1 className="text-2xl  text-center font-bold">
+                                    No Subcategory Available
+                                </h1>
                             </div>
-                        </div>
+                        )}
+                        {cateUp ? (
+                            <CategoryFix setShowModal={setcateUp} />
+                        ) : null}
+                        {subcateUp ? (
+                            <SubCategoryFix setShowModal={setsubcateUp} />
+                        ) : null}
                     </div>
                 </div>
             </div>

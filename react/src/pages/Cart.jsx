@@ -19,7 +19,9 @@ export const Cart = () => {
         const getShowCart = await getCarts(cart[0].deskNumber);
         console.log("at cart page repond of the post show cart ", getShowCart);
         getShowCart.map((item) => dispatch(addToCheckout(item)));
-        navigate("/checkout");
+        setTimeout(() => {
+            navigate("/checkout");
+        }, 1000);
     };
 
     return (
