@@ -115,7 +115,7 @@ function AddNewFoodForm() {
                     placeholder="Enter time to prepare food"
                 />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
                 <label className="block text-xs font-bold mb-2">
                     Upload Image
                 </label>
@@ -131,7 +131,7 @@ function AddNewFoodForm() {
                     onChange={(e) => setSelectedFile(e.target.files[0].name)}
                     className="visible"
                 />
-            </div>
+            </div> */}
             <button
                 // onClick={e => fileInput.current && fileInput.current.click()}
                 className="bg-yellow-500 w-full text-black font-bold rounded-md py-2 px-4 hover:bg-yellow-800 transition-colors duration-300"

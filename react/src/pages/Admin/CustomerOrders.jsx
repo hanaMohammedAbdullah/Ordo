@@ -8,6 +8,7 @@ import {
     addFoodOrders,
     addToOrder,
 } from "../../store/slice/admin/orderAdminSlice";
+import { addSingleOrder } from "../../store/slice/admin/OrderItemSlice";
 export default function CustomerOrders() {
     const dispatch = useDispatch();
     const getOrderHundelr = async () => {
@@ -19,11 +20,7 @@ export default function CustomerOrders() {
         getOrderHundelr();
     }, []);
 
-    const orders = useSelector((state) => state.adminOrder.OrderItems)[0];
-    const order = structuredClone(orders);
-    const singleOrder = structuredClone(order[0]);
-    console.log("this is orders in customer orders ", singleOrder);
-    addFoodOrders(singleOrder);
+    const orders = useSelector((state) => state.adminOrder.OrderItems);
 
     return (
         <div className="flex">

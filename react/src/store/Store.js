@@ -1,13 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import foodsReducer from "./slice/foodsSlice"; // relative path to the slice
 import userReducer from "./slice/UsersSlice"; // relative path to the slice
+import OrderItemSlice from "./slice/admin/OrderItemSlice";
+import orderAdminSlice from "./slice/admin/orderAdminSlice";
 import cartSlice from "./slice/cartSlice";
 import categorySlice from "./slice/categorySlice";
-import deskSlice from "./slice/deskSlice";
-import orderSlice from "./slice/orderSlice";
 import checkoutSlice from "./slice/checkoutSlice";
-import orderAdminSlice from "./slice/admin/orderAdminSlice";
+import deskSlice from "./slice/deskSlice";
+import foodsReducer from "./slice/foodsSlice"; // relative path to the slice
+import orderSlice from "./slice/orderSlice";
 export const store = configureStore({
   reducer: {
     foods: foodsReducer,
@@ -18,6 +19,7 @@ export const store = configureStore({
     order: orderSlice,
     checkout: checkoutSlice,
     adminOrder: orderAdminSlice,
+    singleOrder: OrderItemSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

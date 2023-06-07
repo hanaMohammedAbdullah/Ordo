@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPencilAlt, FaStar, FaTrash } from "react-icons/fa";
 import { DashboardNavbar } from "../../components/Admin/DashboardNavbar";
 import FeedBack from "../../components/FeedBack";
@@ -6,6 +6,8 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSignleFood, getSignleFood } from "../../service/apiServer";
 import { addFoodOrders } from "../../store/slice/admin/orderAdminSlice";
+import FoodUpdate from "../../components/Admin/FoodUpdate";
+import DeletePopup from "../../components/Admin/DeletePopup";
 
 export const FoodFix = () => {
     const food = useSelector((state) => state.adminOrder.OrderFoodItems);
@@ -22,10 +24,15 @@ export const FoodFix = () => {
         return getfood;
     };
     const navigate = useNavigate();
-
+    const [foodUpdate, setFoodUpdate] = useState(false);
+    const [deletePopup, setDeletePopup] = useState(false);
     const deleteHundler = () => {
-        deleteSignleFood(food.id);
-        navigate(-1);
+        // deleteSignleFood(food.id);
+        setDeletePopup(true);
+        // navigate(-1);
+    };
+    const updateHundler = () => {
+        setFoodUpdate(true);
     };
     useEffect(() => {
         handler();
@@ -88,7 +95,7 @@ export const FoodFix = () => {
                             <button onClick={deleteHundler}>
                                 <FaTrash className="text-red-500 text-2xl mx-4" />
                             </button>
-                            <button>
+                            <button onClick={updateHundler}>
                                 <FaPencilAlt className="text-yellow-500 text-2xl" />
                             </button>
                         </div>
@@ -105,16 +112,12 @@ export const FoodFix = () => {
             >
                 {/* <p className="">FeedBacks</p> */}
                 <div className="flex flex-wrap justify-evenly m-2">
-                    {/* {feedback &&
-                        feedback.map((feed) => (
-                            <FeedBack
-                                id={feed.id}
-                                key={feed.id}
-                                review={feed.rate}
-                                name={feed.name}
-                                comment={feed.comment}
-                            />
-                        ))} */}
+                    {foodUpdate ? (
+                        <FoodUpdate setShowModal={setFoodUpdate} />
+                    ) : null}
+                    {deletePopup ? (
+                        <DeletePopup setShowModal={setDeletePopup} />
+                    ) : null}
                 </div>
             </div>
         </div>

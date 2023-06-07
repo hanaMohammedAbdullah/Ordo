@@ -582,12 +582,27 @@ export const getAllOrder = async () => {
     return error.message;
   }
 };
+
+export const getSingleOrder = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}/admin/orders/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("this is response in get all order ", response.data.data);
+
+    return response.data.data;
+  } catch (error) {
+    console.log(error.message);
+
+    return error.message;
+  }
+};
 export const setUpdateOrder = async (id, status) => {
   try {
     const response = await axios.put(
       `${apiUrl}/admin/orders/${id}`,
       {
-        status,
+        changeStatus: status,
       },
       {
         headers: { Authorization: `Bearer ${token}` },

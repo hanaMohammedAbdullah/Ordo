@@ -61,5 +61,5 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::resource('sub-categories', AdminSubCategoryController::class)->except(['create', 'show', 'edit']);
     Route::resource('foods', AdminFoodController::class)->except(['create', 'edit']);
     Route::resource('desks', AdminDeskController::class)->except(['create', 'show', 'edit']);
-    Route::resource('orders', AdminOrderController::class)->except(['create', 'store', 'show', 'edit', 'destroy']);
+    Route::resource('orders', AdminOrderController::class)->except(['create', 'store', 'edit', 'destroy']);
 });

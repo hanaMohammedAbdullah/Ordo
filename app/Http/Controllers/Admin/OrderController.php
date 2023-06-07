@@ -19,6 +19,11 @@ class OrderController extends Controller
         return OrderCollection::collection($orders);
     }
 
+    public function show(Order $order)
+    {
+        return new OrderCollection($order);
+    }
+
 
     public function update(Request $request, Order $order)
     {

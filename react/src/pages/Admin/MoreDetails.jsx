@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DashNav } from "../../components/Admin/DashNav";
 import ProfileInfo from "../../components/Admin/ProfileInfo";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleOrder, setUpdateOrder } from "../../service/apiServer";
+import { addSingleOrder } from "../../store/slice/admin/OrderItemSlice";
 
 export default function MoreDetails() {
+    const navigate = useNavigate();
     const param = useParams();
-    // const handler = async () => {
-    //     // const orders = await getOrders(param.id);
-    // };
-    const orders = useSelector((state) => state.adminOrder.OrderFoodItems);
-    console.log("this is ordersn from more detailed", orders);
+    const dispatch = useDispatch();
+    const [orders, setOrder] = React.useState({});
+    const [changeStatus, setChangeStatus] = React.useState("");
+    const getOrderHundelr = async () => {
+        let Orders = await getSingleOrder(param.id);
+        setOrder(Orders);
+    };
+    useEffect(() => {
+        getOrderHundelr();
+    }, []);
+    const foods = structuredClone(orders.foods);
+    const statusHandler = async (e) => {
+        const status = e.target.value;
+        console.log("this is change status", status);
+        setUpdateOrder(param.id, status);
+        navigate("/orders");
+    };
     // const orders = [
     //     {
     //         food: "Pizza",
@@ -47,14 +62,24 @@ export default function MoreDetails() {
                         phoneNumber="0750 123 4567"
                         name={"Hana Mohamad"}
                         roomNumber="101"
-                        imageSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo6wCUSmJEK9kC5KVqmQczHMH3OMcc_9BTTQ&usqp=CAU"
+                        imageSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtPp1NOKIpzMxnbszZ73xZ-EQ2erJJ8vIN5g&usqp=CAU"
                     />
+                    <Link
+                        to="/orders"
+                        className=" mx-auto bg-yellow-300 font-bold text-black px-20 py-2 rounded-md my-4"
+                    >
+                        Home Order
+                    </Link>
                     <div className="flex h-12 border rounded-md">
                         <span className=" bg-orange-100 py-3 px-8">Status</span>
-                        <select className="block appearance-none w-full bg-orange-100  hover:border-yellow-500 px-8 py-2  leading-tight focus:outline-none focus:shadow-outline">
+                        <select
+                            value={changeStatus}
+                            onChange={statusHandler}
+                            className="block appearance-none w-full bg-orange-100  hover:border-yellow-500 px-8 py-2  leading-tight focus:outline-none focus:shadow-outline"
+                        >
                             <option value="pending">Pending</option>
-                            <option value="approved">Approved</option>
-                            <option value="approved">Rejected</option>
+                            <option value="accepted">Approved</option>
+                            <option value="rejected">Rejected</option>
                         </select>
                     </div>
                 </div>
@@ -65,45 +90,31 @@ export default function MoreDetails() {
                                 <th className="px-4 py-2">Food</th>
                                 <th className="px-4 py-2">Category </th>
                                 <th className="px-4 py-2">Sub category</th>
-                                <th className="px-4 py-2">Image</th>
                                 <th className="px-4 py-2">Quantity</th>
                             </tr>
                         </thead>
                         <tbody className="bg-yellow-50">
-                            {orders.map(
-                                (order) => (
-                                    console.log("this is order", order.foods),
-                                    (
-                                        <tr key={order.category}>
-                                            <td className="border px-4  text-center">
-                                                {order.name}
-                                            </td>
-                                            <td className="border px-4  text-center">
-                                                {order.categoryName}
-                                            </td>
-                                            <td className="border px-4  text-center">
-                                                {order.categoryName}
-                                            </td>
-                                            <td className="border px-4  text-center">
-                                                <img
-                                                    src={order.imageSrc}
-                                                    className="h-20  mx-auto"
-                                                    alt="food"
-                                                />
-                                            </td>
+                            {foods &&
+                                foods.length > 0 &&
+                                foods.map((order) => (
+                                    <tr key={order.category}>
+                                        <td className="border px-4  text-center">
+                                            {order.name}
+                                        </td>
+                                        <td className="border px-4  text-center">
+                                            {order.categoryName}
+                                        </td>
+                                        <td className="border px-4  text-center">
+                                            {order.subcategoryName}
+                                        </td>
 
-                                            <td className="border px-4  text-center">
-                                                {order.quantity}
-                                            </td>
-                                        </tr>
-                                    )
-                                )
-                            )}
+                                        <td className="border px-4  text-center">
+                                            2
+                                        </td>
+                                    </tr>
+                                ))}
                         </tbody>
                     </table>
-                    <button className=" mx-auto bg-yellow-300 font-bold text-black px-20 py-2 rounded-md my-4">
-                        Archive
-                    </button>
                 </div>
             </div>
         </div>
