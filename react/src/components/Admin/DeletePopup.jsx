@@ -1,25 +1,18 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteSignleFood } from "../../service/apiServer";
+import { useNavigate } from "react-router-dom";
 
-const DeletePopup = ({ food, setShowModal }) => {
+const DeletePopup = ({ id, setShowModal }) => {
     const dispatch = useDispatch();
-    // call
-    // createing a state managment to give the value of note to the data before adding to the cart
-    //    const nameref = useRef();
-    // const nameref = useRef();
-
-    // const deskNumber = useSelector((state) => state.desk.deskNumber);
-    // const categoryName = nameref.current.value;
-
-    // const textAreaRef = useRef(null);
-
-    const addToCartHandler = async (e) => {
-        // const data = {
-        //     ...food,
-        //     description: textAreaRef.current.value,
-        //     deskNumber: deskNumber,
-        // };
+    //
+    const navigate = useNavigate();
+    const deleteHundler = async () => {
+        deleteSignleFood(id);
         setShowModal(false);
+        setTimeout(() => {
+            navigate(-1);
+        }, 1000);
     };
     return (
         <>
@@ -43,7 +36,7 @@ const DeletePopup = ({ food, setShowModal }) => {
                         </div>
                         {/*body*/}
                         <div className="relative p-6 flex-auto">
-                        Are you Sure you want to delete this Food ?
+                            Are you Sure you want to delete this Food ?
                         </div>
                         {/*footer*/}
                         <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -57,7 +50,7 @@ const DeletePopup = ({ food, setShowModal }) => {
                             <button
                                 className="bg-orange-500 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
-                                onClick={() => addToCartHandler(false)}
+                                onClick={() => deleteHundler()}
                             >
                                 Delete
                             </button>

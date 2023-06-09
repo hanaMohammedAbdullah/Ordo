@@ -23,12 +23,14 @@ export const FoodFix = () => {
         dispatch(addFoodOrders(getfood));
         return getfood;
     };
+     // navigate(-1);
     const navigate = useNavigate();
     const [foodUpdate, setFoodUpdate] = useState(false);
     const [deletePopup, setDeletePopup] = useState(false);
     const deleteHundler = () => {
-        // deleteSignleFood(food.id);
         setDeletePopup(true);
+
+        // deleteSignleFood(food.id);
         // navigate(-1);
     };
     const updateHundler = () => {
@@ -116,7 +118,7 @@ export const FoodFix = () => {
                         <FoodUpdate setShowModal={setFoodUpdate} />
                     ) : null}
                     {deletePopup ? (
-                        <DeletePopup setShowModal={setDeletePopup} />
+                        <DeletePopup key={food.id} id={food.id} setShowModal={setDeletePopup} />
                     ) : null}
                 </div>
             </div>

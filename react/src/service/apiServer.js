@@ -480,33 +480,11 @@ export const deleteSignleFood = async (id) => {
     return error.message;
   }
 };
-export const setNewFood = async (
-  name,
-  price,
-  subcategoryName,
-  categoryName,
-  description,
-  availability,
-  time,
-  image
-) => {
+export const setNewFood = async (formData) => {
   try {
-    const response = await axios.post(
-      `${apiUrl}/admin/foods`,
-      {
-        name,
-        price,
-        subcategoryName,
-        categoryName,
-        description,
-        availability,
-        time,
-        image,
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await axios.post(`${apiUrl}/admin/foods`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     console.log("this is response in set new food ", response.data);
 
     return response.data;
