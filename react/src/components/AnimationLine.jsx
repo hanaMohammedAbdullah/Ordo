@@ -17,7 +17,9 @@ export function AnimatedLine({ totalTime }) {
 
     const style = {
         width: "100%",
-        height: "4px",
+        height: "10px",
+        borderRadius: "4px",
+
         background: gradient,
         // transition: "background  1s linear",
     };

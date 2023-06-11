@@ -15,12 +15,9 @@ export const OrderedCart = ({
     status,
     arg,
 }) => {
-    // function capitalizeFirstLetter(word) {
-    //     return word.charAt(0).toUpperCase() + word.slice(1);
-    // }
     console.log("this is item in ordercart ", arg);
 
-    // const capitalized = capitalizeFirstLetter(name);
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
     const dispatch = useDispatch();
     const handleDelete = async () => {
         console.log(
@@ -34,14 +31,14 @@ export const OrderedCart = ({
     };
 
     return (
-        <div className="border  rounded m-4 py-4  shadow">
+        <div className="border  rounded m-4 py-4   hover:shadow-lg">
             <div className="flex content-evenly ">
                 <div className="flex  first-letter: flex-col  items-start ml-2 w-1/2 justify-start ">
                     <h2 className="text-lg font-semibold	 text-center">
-                        {name}
+                        {capitalizedName}
                     </h2>
 
-                    <div className="flex w-full mt-4">
+                    <div className="flex w-full mt-4 ">
                         <AnimatedLine totalTime={100} />
                     </div>
                 </div>

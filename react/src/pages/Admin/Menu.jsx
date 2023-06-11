@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { DashNav } from "../../components/Admin/DashNav";
@@ -16,12 +16,10 @@ export default function Menu() {
     const [category, setCategory] = useState([]);
     const [subcategory, setSubCategory] = useState([]);
     const dispatch = useDispatch();
+    const [categoryData, setCategoryData] = useState("");
     const getHandler = async () => {
         let dataCategory = await getAllCategory();
         let dataSubCategory = await getAllSubCategory();
-
-        // console.log("this is data", data);
-        // dispatch(setFood(data));
         setCategory(dataCategory);
         setSubCategory(dataSubCategory);
     };
@@ -33,13 +31,6 @@ export default function Menu() {
     };
     const cateupdateHandler = async (id) => {
         setcateUp(true);
-        // await setcateUp(id);
-        // let dataCategory = await getAllCategory();
-        // let dataSubCategory = await getAllSubCategory();
-        // // console.log("this is data", data);
-        // // dispatch(setFood(data));
-        // setCategory(dataCategory);
-        // setSubCategory(dataSubCategory);
     };
 
     const deleteHundler = async (id) => {
@@ -179,7 +170,10 @@ export default function Menu() {
                             </div>
                         )}
                         {cateUp ? (
-                            <CategoryFix setShowModal={setcateUp} />
+                            <CategoryFix
+                                setShowModal={setcateUp}
+                                // cateupdateHandler={setCategoryData}
+                            />
                         ) : null}
                         {subcateUp ? (
                             <SubCategoryFix setShowModal={setsubcateUp} />

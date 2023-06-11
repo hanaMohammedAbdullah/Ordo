@@ -19,25 +19,12 @@ const FoodNote = ({ food, setShowModal }) => {
             description: textAreaRef.current.value,
             deskNumber: deskNumber,
         };
-        // console.log("data in note", data);
-        // const data = setCart(data.desk_id, data.id, data.foodQuantity);
         dispatch(addToCart(data));
-        // console.log("data in note", data);
-        // await setCart(data.desk_id, data.id, data.foodQuantity);
-        // onChangeHandler();
         setShowModal(false);
     };
     // console.log("food", food);
     const cart = useSelector((state) => state.cart.cartItems);
     console.log("cart", cart);
-    // useEffect(async () => {
-    //     // await setCart(data.desk_id, data.id, data.foodQuantity);
-    //     console.log("cart", cart);
-    // }, [dispatch]);
-
-    // const cart = useSelector((state) => state.cart.cartItems);
-    // const onChangeHandler =async () => {
-    // };
 
     return (
         <>

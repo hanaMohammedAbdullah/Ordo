@@ -12,7 +12,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
                         <button
-                            className="text-gray-900 hover:text-gray-500 focus:outline-none focus:black-white"
+                            className="text-gray-900 hover:text-yellow-500 focus:outline-none focus:text-yellow-500"
                             aria-label="Open sidebar"
                             onClick={() => setShowLinks(!showLinks)}
                         >
@@ -28,7 +28,7 @@ const Navbar = () => {
                         <div className="relative">
                             <Link
                                 to="/cart"
-                                className="text-gray-400 hover:text-white focus:outline-none focus:text-white"
+                                className="text-gray-400 hover:text-yellow-500 focus:outline-none focus:text-yellow-500"
                                 aria-label="Cart"
                             >
                                 <FaCartPlus className="h-6 w-6" />

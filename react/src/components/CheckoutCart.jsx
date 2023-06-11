@@ -15,11 +15,6 @@ export const CheckoutCart = ({
     image,
     media_id,
 }) => {
-    // function capitalizeFirstLetter(word) {
-    //     return word.charAt(0).toUpperCase() + word.slice(1);
-    // }
-
-    // const capitalized = capitalizeFirstLetter(name);
     const image_url = `http://localhost:8000/storage/${media_id}/` + image;
 
     const Total = price * quantity;

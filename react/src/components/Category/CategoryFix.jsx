@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const CategoryFix = ({ food, setShowModal }) => {
+const CategoryFix = ({ setShowModal, cateupdateHandler }) => {
     const dispatch = useDispatch();
-    // call
+    const cateInput = useRef(null);
+
     // createing a state managment to give the value of note to the data before adding to the cart
     //    const nameref = useRef();
     // const nameref = useRef();
@@ -13,7 +14,8 @@ const CategoryFix = ({ food, setShowModal }) => {
 
     // const textAreaRef = useRef(null);
 
-    const addToCartHandler = async (e) => {
+    const handler = async (e) => {
+        // cateupdateHandler(cateInput.current.value);
         // const data = {
         //     ...food,
         //     description: textAreaRef.current.value,
@@ -45,7 +47,7 @@ const CategoryFix = ({ food, setShowModal }) => {
                         <div className="relative p-6 flex-auto">
                             Category Name :{" "}
                             <input
-                                // ref={nameref}
+                                ref={cateInput}
                                 className="border rounded-sm  w-11/12 m-3 border-yellow-400"
                                 type="text"
                                 placeholder="Enter your Update name Category "
@@ -63,7 +65,7 @@ const CategoryFix = ({ food, setShowModal }) => {
                             <button
                                 className="bg-orange-500 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
-                                onClick={() => addToCartHandler(false)}
+                                onClick={() => handler()}
                             >
                                 Update
                             </button>

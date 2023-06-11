@@ -25,9 +25,15 @@ const singleOrder = createSlice({
         localStorage.setItem("singleOrder", JSON.stringify(state.OrderItems));
       }
     },
+    // write a functon  about removing from cart
+    removeFromOrderSingle: (state, action) => {
+      state.OrderItems = [];
+      localStorage.setItem("singleOrder", JSON.stringify(state.OrderItems));
+    },
+
     // add a n food order list that save the food order object that have a list food in it
   },
 });
 
-export const { addSingleOrder } = singleOrder.actions;
+export const { addSingleOrder, removeFromOrderSingle } = singleOrder.actions;
 export default singleOrder.reducer;

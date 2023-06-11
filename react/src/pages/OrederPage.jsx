@@ -15,10 +15,6 @@ export const OrderPage = () => {
     console.log("order in order page", order);
     const foods = order[0].foods;
 
-    //     <h2 className="text-lg font-semibold text-right	 mr-4 items-end">
-    //     Status : {item?.status}
-    // </h2>
-
     return (
         <div>
             <nav className="bg-gray-100 ">
@@ -59,8 +55,10 @@ export const OrderPage = () => {
                     </div>
                 </div>
             </nav>
-            <div className="w-full  ">
-                <div className=" h-5/6 border-2 rounded">
+            <div className="w-full  min-h-screen">
+                {/* order section */}
+
+                <div className="m-2 h-5/6 border-2 rounded">
                     {order && order.length === 0 ? (
                         <div className="	 text-center py-60">
                             <h1 className="text-gray-800  w-full text-2xl  font-bold     ">
@@ -83,7 +81,6 @@ export const OrderPage = () => {
                         ))
                     )}
                 </div>
-                {/* total section */}
             </div>
             <Footer />
         </div>

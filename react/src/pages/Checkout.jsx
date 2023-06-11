@@ -31,11 +31,8 @@ export const Checkout = () => {
         console.log("getOrders", getOrders);
         const getOrder = getOrders;
         dispatch(addToOrder(getOrder));
-        // console.log("at cart page repond of the post show cart ", getShowCart);
-        // getShowCart.map((item) => dispatch(addToCheckout(item)));
         navigate("/order");
     };
-    // const totalPrice = cart.reduce((acc, item) => acc + item * item.price, 0);
     const totalPrice = checkout.reduce((accumulator, foodItem) => {
         const { quantity, price } = foodItem;
         return accumulator + quantity * price;

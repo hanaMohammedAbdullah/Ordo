@@ -4,7 +4,6 @@ import { deleteSignleFood } from "../../service/apiServer";
 import { useNavigate } from "react-router-dom";
 
 const DeletePopup = ({ id, setShowModal }) => {
-    const dispatch = useDispatch();
     //
     const navigate = useNavigate();
     const deleteHundler = async () => {
