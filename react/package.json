@@ -9,11 +9,10 @@
         "@testing-library/user-event": "^13.5.0",
         "axios": "^1.4.0",
         "react": "^18.2.0",
-        "react-admin": "^4.10.1",
         "react-dom": "^18.2.0",
         "react-icons": "^4.8.0",
         "react-redux": "^8.0.5",
-        "react-router-dom": "^6.30.6",
+        "react-router-dom": "^7.18.0",
         "react-scripts": "5.0.1",
         "web-vitals": "^2.1.4"
     },
@@ -58,6 +57,7 @@
         "dompurify": ">=3.4.13",
         "uuid": ">=11.1.1",
         "qs": ">=6.16.0",
-        "webpack-dev-server": ">=5.2.6"
+        "webpack-dev-server": ">=5.2.6",
+        "@tootallnate/once": ">=2.0.1"
     }
 }
